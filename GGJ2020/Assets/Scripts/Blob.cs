@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Blob : MonoBehaviour
 {
+
     void Update()
     {
         transform.position += Vector3.forward;
@@ -13,4 +14,6 @@ public class Blob : MonoBehaviour
     {
         
     }
+
+
 }
