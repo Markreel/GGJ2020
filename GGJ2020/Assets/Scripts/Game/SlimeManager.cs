@@ -185,14 +185,14 @@ public class SlimeManager : MonoBehaviour
         GameObject _newSlime = Instantiate(newSlimePrefab, _position, newSlimePrefab.transform.rotation);
         slimeList.Add(_newSlime.GetComponent<Slime>());
 
-        CheckWhichSlimeIsTheBiggest();
+        CheckWhichSlimeIsTheBiggest(true);
     }
 
     #endregion
 
     #region PublicFunctions
 
-    public void CheckWhichSlimeIsTheBiggest()
+    public void CheckWhichSlimeIsTheBiggest(bool _checkIfDead = false)
     {
         float _sizeRecord = 0;
         Slime _biggestBoi = null;
@@ -208,7 +208,7 @@ public class SlimeManager : MonoBehaviour
             }
         }
 
-        if(_sizeRecord <= 1) { SceneRegulator.Instance.RestartScene(); }
+        if(_checkIfDead && _sizeRecord <= 1) { SceneRegulator.Instance.RestartScene(); }
 
         if(CurrentSlime != null && CurrentSlime.SlimeSize == _sizeRecord) { _biggestBoi = CurrentSlime; }
 
