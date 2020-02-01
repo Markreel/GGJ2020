@@ -6,6 +6,7 @@ public class TargetMovement : MonoBehaviour
 {
     [Header("Stats")]
     public float speed;
+    public float gravityAmplifier = 2f;
     public float angleThreshold = 15f;
     public float rayHeight = 10f;
     public float rayLength = 2f;
@@ -18,6 +19,9 @@ public class TargetMovement : MonoBehaviour
 
 
     private Vector3 pos;
+    private bool mayChangeDirection = true;
+    private bool checkForDirection = true;
+    private Vector3 forwardVector, rightVector;
     private float vInput = 0f;
     private float hInput = 0f;
 
@@ -26,6 +30,8 @@ public class TargetMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        forwardVector = transform.forward;
+        rightVector = transform.right;
     }
 
     private void Start()
@@ -39,11 +45,18 @@ public class TargetMovement : MonoBehaviour
         transform.position = pos;
     }
 
+    private void FixedUpdate()
+    {
+        Movement();
+        if (checkForDirection)
+        {
+            CustomGravity();
+        }
+    }
+
     private void Update()
     {
         GetInput();
-        Movement();
-        
     }
 
     private void GetInput()
@@ -57,9 +70,15 @@ public class TargetMovement : MonoBehaviour
         Quaternion lookDir = Quaternion.Euler(transform.rotation.eulerAngles.x, forwardTranform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
         transform.rotation = lookDir;
 
+        if (checkForDirection)
+        {
+            forwardVector = transform.forward;
+            rightVector = transform.right;
+        }
+
         Vector3 moveVelocity = Vector3.zero;
-        moveVelocity += transform.forward * vInput * speed;
-        moveVelocity += transform.right * hInput * speed;
+        moveVelocity += forwardVector * vInput * speed;
+        moveVelocity += rightVector * hInput * speed;
 
         moveVelocity = moveVelocity.normalized * speed;
 
@@ -67,29 +86,11 @@ public class TargetMovement : MonoBehaviour
 
         Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
         transform.localRotation = WantedRotation;
+    }
 
-        Debug.DrawRay(transform.position, transform.forward, Color.red, 2f);
-
-        //Vector3 wantedPos = pos;
-
-        //Vector3 moveDir = transform.forward * vInput;
-        //moveDir += transform.right * hInput;
-        //moveDir.y = 0;
-        //moveDir = moveDir.normalized;
-
-        //wantedPos += moveDir * speed;
-
-        //if (Physics.Raycast(wantedPos + Vector3.up * rayHeight, Vector3.down * rayLength, out RaycastHit hit))
-        //{
-        //    Vector3 newPos = hit.point;
-        //    if (newPos.y < transform.position.y - yThreshold || newPos.y > transform.position.y + yThreshold)
-        //    {
-        //        newPos.x = transform.position.x;
-        //        newPos.z = transform.position.z;
-        //        newPos.y = (newPos.y > transform.position.y)? transform.position.y + speed : transform.position.y - speed;
-        //    }
-        //    SetPos(newPos);
-        //}
+    private void CustomGravity()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, -gravityAmplifier, rb.velocity.z);
     }
 
     private void OnEnterAimMode()
@@ -102,66 +103,79 @@ public class TargetMovement : MonoBehaviour
 
         List<ContactPoint> contactPoints = new List<ContactPoint>();
         collision.GetContacts(contactPoints);
-        contactPoints.RemoveAt(collision.contactCount);
+
         if (contactPoints.Count > 0)
         {
             CheckOnCollisionHits(contactPoints);
         }
     }
 
+    private void OnCollisionExit(Collision collision)
+    {
+        if (mayChangeDirection)
+        {
+            checkForDirection = true;
+        }
+    }
+
     private void CheckOnCollisionHits(List<ContactPoint> contactPoints)
     {
-        for (int i = 0; i < contactPoints.Count; i++)
+        if (mayChangeDirection)
         {
-            if (contactPoints[i].otherCollider == null) break;
-
-            Vector3 dir = contactPoints[i].normal;
-
-
-
-            //Ceiling
-            //else if (Vector3.Angle(dir, Vector3.down) <= groundCollAngleThreshold && Vector3.Angle(dir, Vector3.down) >= -groundCollAngleThreshold)
-            //{
-            //    break;
-            //}
-        }
-
-
-        for (int i = 0; i < contactPoints.Count; i++)
-        {
-            if (contactPoints[i].otherCollider == null) break;
-
-            Vector3 dir = contactPoints[i].normal;
-
-            //Ground
-            if (Vector3.Angle(dir, Vector3.up) <= angleThreshold && Vector3.Angle(dir, Vector3.up) >= -angleThreshold)
+            for (int i = 0; i < contactPoints.Count; i++)
             {
-                return;
-            }
+                if (contactPoints[i].otherCollider == null) break;
 
-            //Right
-            if (Vector3.Angle(dir, -transform.right) <= angleThreshold && Vector3.Angle(dir, -transform.right) >= -angleThreshold)
-            {
+                Vector3 dir = contactPoints[i].normal;
 
-                break;
-            }
-
-            //Left
-            else if (Vector3.Angle(dir, transform.right) <= angleThreshold && Vector3.Angle(dir, transform.right) >= -angleThreshold)
-            {
-
-                break;
-            }
-
-            //Forward
-            else if (Vector3.Angle(dir, -transform.forward) <= angleThreshold && Vector3.Angle(dir, -transform.forward) >= -angleThreshold)
-            {
-                Debug.Log("Something in front");
-                break;
+                //Forward
+                if (Vector3.Angle(dir, -transform.forward) <= angleThreshold && Vector3.Angle(dir, -transform.forward) >= -angleThreshold)
+                {
+                    StartCoroutine(WaitDirChange());
+                    checkForDirection = false;
+                    //Debug.DrawRay(transform.position, dir, Color.blue, 1f);
+                    //Debug.DrawRay(transform.position, GetTangent(dir), Color.red, 2f);
+                    //Debug.DrawRay(transform.position, GetBiNormal(dir, GetTangent(dir)), Color.green, 2f);
+                    Vector3 tangent = GetTangent(dir);
+                    rightVector = tangent;
+                    forwardVector = -GetBiNormal(dir, tangent);
+                    return;
+                } 
+            
+                //Ground
+                //else if (Vector3.Angle(dir, -Vector3.up) <= angleThreshold && Vector3.Angle(dir, -Vector3.up) >= -angleThreshold)
+                //{
+                //    checkForDirection = true;
+                //}
             }
         }
-        
+    }
 
+    private IEnumerator WaitDirChange(float time = 0.1f)
+    {
+        mayChangeDirection = false;
+        yield return new WaitForSeconds(time);
+        mayChangeDirection = true;
+    }
 
+    private Vector3 GetTangent(Vector3 normal)
+    {
+        Vector3 tangent;
+        Vector3 t1 = Vector3.Cross(normal, transform.forward);
+        Vector3 t2 = Vector3.Cross(normal, transform.up);
+        if (t1.magnitude > t2.magnitude)
+        {
+            tangent = t1;
+        } else
+        {
+            tangent = t2;
+        }
+
+        return tangent;
+    }
+
+    private Vector3 GetBiNormal(Vector3 normal, Vector3 tangent)
+    {
+        return Vector3.Cross(normal, tangent);
     }
 }
