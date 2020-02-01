@@ -5,6 +5,7 @@ using UnityEngine;
 public class TargetMovement : MonoBehaviour
 {
     [Header("Stats")]
+    public float maxDistanceFromPlayer = 4f;
     public float speed;
     public float gravityAmplifier = 2f;
     public float angleThreshold = 15f;
@@ -16,6 +17,7 @@ public class TargetMovement : MonoBehaviour
     public string horizontalJoystick = "Horizontal";
     public string verticalJoystick = "Vertical";
     public Transform forwardTranform;
+    public Transform playerTransform;
 
 
     private Vector3 pos;
@@ -47,10 +49,17 @@ public class TargetMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Movement();
-        if (checkForDirection)
+        if (Mathf.Abs(Vector3.Distance(transform.position, playerTransform.position)) - 
+            Mathf.Abs(transform.position.y - playerTransform.position.y) <= maxDistanceFromPlayer)
         {
-            CustomGravity();
+            Movement();
+            if (checkForDirection)
+            {
+                CustomGravity();
+            }
+        } else
+        {
+            rb.velocity = Vector3.zero;
         }
     }
 
@@ -116,6 +125,17 @@ public class TargetMovement : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         if (mayChangeDirection)
+        {
+            checkForDirection = true;
+        }
+    }
+
+    private void StopFloating()
+    {
+        if (!Physics.Raycast(transform.position, transform.forward) && 
+            !Physics.Raycast(transform.position, transform.right) && 
+            !Physics.Raycast(transform.position, -transform.right) &&
+            !Physics.Raycast(transform.position, -transform.forward))
         {
             checkForDirection = true;
         }
