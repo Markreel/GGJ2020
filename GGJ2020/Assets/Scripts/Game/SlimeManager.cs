@@ -8,7 +8,7 @@ public class SlimeManager : MonoBehaviour
     private static SlimeManager instance;
     public static SlimeManager Instance { get { return instance; } private set { instance = value; } }
 
-    public enum States { Idle, Moving, Dead }
+    public enum States { Idle, Moving, Dead };
     private States currentState;
 
     [SerializeField] CinemachineFreeLook thirdPersonCam;
@@ -46,6 +46,9 @@ public class SlimeManager : MonoBehaviour
 
     private bool isAiming = true;
 
+    private bool aimInput = false;
+    private bool fireInput = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -82,8 +85,12 @@ public class SlimeManager : MonoBehaviour
         vInput = Input.GetAxis(verticalJoystick);
         hInput = Input.GetAxis(horizontalJoystick);
 
-        if (Input.GetButtonDown(aimInputString)) { ToggleAim(); }
-        if (Input.GetButtonDown(fireInputString) && isAiming) { ShootBlob(); }
+        if (Input.GetAxisRaw(aimInputString) != 0 && !aimInput) { ToggleAim(); aimInput = true; }
+        if (Input.GetAxisRaw(fireInputString) != 0 && isAiming && !fireInput) { ShootBlob(); fireInput = true; }
+
+        if (Input.GetAxisRaw(aimInputString) == 0 && aimInput) { ToggleAim(); aimInput = false; } 
+        if (Input.GetAxisRaw(fireInputString) == 0 && fireInput) { fireInput = false; }
+
     }
 
     #region Movement
