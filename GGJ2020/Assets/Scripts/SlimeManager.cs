@@ -5,7 +5,8 @@ using Cinemachine;
 
 public class SlimeManager : MonoBehaviour
 {
-    public static SlimeManager Instance;
+    private static SlimeManager instance;
+    public static SlimeManager Instance { get { return instance; } private set { instance = value; } }
 
     public enum States { Idle, Moving, Dead }
     private States currentState;
@@ -29,8 +30,8 @@ public class SlimeManager : MonoBehaviour
     [Header("Input")]
     [SerializeField] string aimInputString = "Aim";
     [SerializeField] string fireInputString = "Fire1";
-    [SerializeField] string horizontalInputString = "Horizontal";
-    [SerializeField] string verticalInputString = "Vertical";
+    [SerializeField] string horizontalJoystick = "Horizontal";
+    [SerializeField] string verticalJoystick = "Vertical";
     [SerializeField] string horizontalViewInputString = "HorizontalView";
     [SerializeField] string verticalViewInputString = "VerticalView";
 
@@ -38,10 +39,7 @@ public class SlimeManager : MonoBehaviour
     public float movementSpeed;
     public float gravityAmplifier;
 
-    [Header("Input")]
-    public string horizontalJoystick = "Horizontal";
-    public string verticalJoystick = "Vertical";
-    public Transform forwardTranform;
+    public Transform camTransform;
 
     private float vInput = 0f;
     private float hInput = 0f;
@@ -50,7 +48,15 @@ public class SlimeManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        } else
+        {
+            Destroy(instance.gameObject);
+            instance = this;
+        }
+
         CheckWhichSlimeIsTheBiggest();
     }
 
@@ -59,12 +65,56 @@ public class SlimeManager : MonoBehaviour
         ToggleAim();
     }
 
+    private void FixedUpdate()
+    {
+        Movement();
+        CustomGravity();
+    }
+
     private void Update()
     {
         GetInput();
+        
+    }
+
+    private void GetInput()
+    {
+        vInput = Input.GetAxis(verticalJoystick);
+        hInput = Input.GetAxis(horizontalJoystick);
+
         if (Input.GetButtonDown(aimInputString)) { ToggleAim(); }
         if (Input.GetButtonDown(fireInputString) && isAiming) { ShootBlob(); }
     }
+
+    #region Movement
+
+    private void CustomGravity()
+    {
+        rigidbodyOfCurrentSlime.velocity = Vector3.down * gravityAmplifier;
+    }
+
+    private void Movement()
+    {
+        Vector3 moveVelocity = Vector3.zero;
+
+        Quaternion walkDir = Quaternion.Euler(CurrentSlime.transform.rotation.eulerAngles.x, camTransform.rotation.eulerAngles.y, CurrentSlime.transform.rotation.eulerAngles.z);
+        CurrentSlime.transform.rotation = walkDir;
+
+        moveVelocity += CurrentSlime.transform.forward * vInput;
+        moveVelocity += CurrentSlime.transform.right * hInput;
+
+
+        moveVelocity = moveVelocity.normalized;
+        moveVelocity *= movementSpeed;
+
+        rigidbodyOfCurrentSlime.velocity = moveVelocity;
+
+        Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
+        CurrentSlime.transform.localRotation = Quaternion.Slerp(CurrentSlime.transform.localRotation, WantedRotation, Time.deltaTime);
+    }
+    #endregion
+
+    #region BlobRelated
 
     private void ToggleAim()
     {
@@ -83,45 +133,6 @@ public class SlimeManager : MonoBehaviour
     private void ShootBlob()
     {
         blobFlightRoutine = StartCoroutine(IELerpBlobOverCurve());
-    }
-
-    //
-
-    private void FixedUpdate()
-    {
-        Movement();
-        CustomGravity();
-    }
-
-    private void GetInput()
-    {
-        vInput = Input.GetAxis(verticalJoystick);
-        hInput = Input.GetAxis(horizontalJoystick);
-    }
-
-    private void CustomGravity()
-    {
-        rigidbodyOfCurrentSlime.velocity = new Vector3(rigidbodyOfCurrentSlime.velocity.x, -gravityAmplifier, rigidbodyOfCurrentSlime.velocity.z);
-    }
-
-    private void Movement()
-    {
-        Vector3 moveVelocity = Vector3.zero;
-
-        Quaternion walkDir = Quaternion.Euler(CurrentSlime.transform.rotation.eulerAngles.x, forwardTranform.rotation.eulerAngles.y, CurrentSlime.transform.rotation.eulerAngles.z);
-        CurrentSlime.transform.rotation = walkDir;
-
-        moveVelocity += CurrentSlime.transform.forward * vInput;
-        moveVelocity += CurrentSlime.transform.right * hInput;
-
-
-        moveVelocity = moveVelocity.normalized;
-        moveVelocity *= movementSpeed;
-
-        rigidbodyOfCurrentSlime.velocity = moveVelocity;
-
-        Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
-        CurrentSlime.transform.localRotation = Quaternion.Slerp(CurrentSlime.transform.localRotation, WantedRotation, Time.deltaTime * 5);
     }
 
     private IEnumerator IELerpBlobOverCurve()
@@ -188,4 +199,5 @@ public class SlimeManager : MonoBehaviour
         thirdPersonCam.m_LookAt = CurrentSlime.transform;
         thirdPersonCam.m_Follow = CurrentSlime.transform;
     }
+    #endregion
 }

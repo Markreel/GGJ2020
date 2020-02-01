@@ -806,8 +806,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076898657}
-  m_LocalRotation: {x: 0.23264845, y: -0.000000044244924, z: 0.00000024362873, w: 0.9725609}
-  m_LocalPosition: {x: 0, y: 2.4, z: -3.35}
+  m_LocalRotation: {x: 0.23264849, y: -0.000000074016626, z: 0.00000025075047, w: 0.9725609}
+  m_LocalPosition: {x: 0, y: 6.17, z: -3.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1144,7 +1144,7 @@ PrefabInstance:
     - target: {fileID: 3164792501866284613, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.4
+      value: 6.17
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501866284613, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
@@ -1194,47 +1194,52 @@ PrefabInstance:
     - target: {fileID: 3164792502906067526, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.23264845
+      value: -0.23264848
       objectReference: {fileID: 0}
     - target: {fileID: 3164792502906067526, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000015684448
+      value: 0.000000019976742
       objectReference: {fileID: 0}
     - target: {fileID: 3164792502906067526, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000163122
+      value: -0.000000024842791
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501917815049, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.23264845
+      value: -0.23264846
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501917815049, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000004424493
+      value: 0.00000007990615
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501917815049, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000024362876
+      value: -0.00000025215937
+      objectReference: {fileID: 0}
+    - target: {fileID: 3164792501917815049, guid: 07f6c9394cd3e8345b8aeea53780cc18,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.97256094
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501630972133, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.23264843
+      value: -0.23264848
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501630972133, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000006135622
+      value: -0.000000031584538
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501630972133, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00000019782507
+      value: 0.00000019070335
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07f6c9394cd3e8345b8aeea53780cc18, type: 3}
@@ -1263,8 +1268,8 @@ GameObject:
   - component: {fileID: 1752647556}
   - component: {fileID: 1752647555}
   - component: {fileID: 1752647554}
-  - component: {fileID: 1752647553}
   - component: {fileID: 1752647552}
+  - component: {fileID: 1752647558}
   m_Layer: 9
   m_Name: Slime
   m_TagString: Untagged
@@ -1280,7 +1285,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752647550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7, z: 0}
+  m_LocalPosition: {x: 0, y: 4.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1299,7 +1304,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thirdPersonCam: {fileID: 1718651600}
-  slimeList: []
+  slimeList:
+  - {fileID: 1752647558}
+  CurrentSlime: {fileID: 1752647558}
   newSlimePrefab: {fileID: 0}
   aimTarget: {fileID: 1000563074}
   blobPrefab: {fileID: 5148031738388703472, guid: 636eeebbd3be5844aa6a36ab8e36746a,
@@ -1335,18 +1342,6 @@ MonoBehaviour:
   verticalInputString: Vertical
   horizontalViewInputString: HorizontalView
   verticalViewInputString: VerticalView
---- !u!114 &1752647553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752647550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bea7e673c1b1414cb1077d22293908f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   movementSpeed: 6
   gravityAmplifier: 2
   horizontalJoystick: Horizontal
@@ -1427,6 +1422,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752647550}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1752647558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752647550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd468b91f4c5cb14e9fe9172c72a6813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleFactor: 1
+  PrimeSlime: 0
+  SlimeSize: 1
 --- !u!1 &1913671037
 GameObject:
   m_ObjectHideFlags: 0
