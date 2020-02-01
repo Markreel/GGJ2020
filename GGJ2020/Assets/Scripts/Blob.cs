@@ -10,8 +10,13 @@ public class Blob : MonoBehaviour
         transform.position += Vector3.forward;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider _other)
     {
+        if(_other.gameObject.layer == 9)
+        {
+
+        }
+
         
     }
 

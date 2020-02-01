@@ -62,7 +62,6 @@ public class SlimeTest : MonoBehaviour
         blobFlightRoutine = StartCoroutine(IELerpBlobOverCurve());
     }
 
-
     private IEnumerator IELerpBlobOverCurve()
     {
         GameObject _blob;
