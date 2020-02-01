@@ -9,6 +9,8 @@ public class AimTarget : MonoBehaviour
     public float midPointPosition = 0;
     private LineRenderer lr;
 
+    public Vector3[] Points { get; private set; }
+
     private void Awake()
     {
         lr = GetComponent<LineRenderer>();
@@ -27,13 +29,13 @@ public class AimTarget : MonoBehaviour
         p1.y += lineHeight;
         p1.x += midPointPosition;
         p1.z += midPointPosition;
-        List<Vector3> points = new List<Vector3>();
+        List<Vector3> _points = new List<Vector3>();
         for (float i = 0; i < 1; i += 0.02f)
         {
-            points.Add(CalcQuadraticBezierCurve(i, transform.position/2, p1, slime.position/2));
+            _points.Add(CalcQuadraticBezierCurve(i, transform.position/2, p1, slime.position/2));
         }
-
-        lr.SetPositions(points.ToArray());
+        Points = _points.ToArray();
+        lr.SetPositions(Points);
     }
 
     private Vector3 CalcQuadraticBezierCurve(float t, Vector3 p0, Vector3 p1, Vector3 p2)
