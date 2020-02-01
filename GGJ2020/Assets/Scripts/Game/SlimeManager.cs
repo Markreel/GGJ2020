@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using FMODUnity;
 
 public class SlimeManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class SlimeManager : MonoBehaviour
 
     //[SerializeField] CinemachineVirtualCamera vCam;
     [SerializeField] GameObject newSlimePrefab;
+    [SerializeField] StudioEventEmitter studioEventEmitter;
 
     [Header("Blob Settings: ")]
     [SerializeField] AimTarget aimTarget;
@@ -74,7 +76,6 @@ public class SlimeManager : MonoBehaviour
     private void Update()
     {
         GetInput();
-        
     }
 
     private void GetInput()
@@ -110,6 +111,9 @@ public class SlimeManager : MonoBehaviour
 
         Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
         CurrentSlime.transform.localRotation = Quaternion.Slerp(CurrentSlime.transform.localRotation, WantedRotation, Time.deltaTime * 5);
+
+        if(moveVelocity != Vector3.zero) { studioEventEmitter.Params[0].Value = 1; }
+        else { studioEventEmitter.Params[0].Value = 0; }
     }
    
     #endregion
@@ -132,6 +136,7 @@ public class SlimeManager : MonoBehaviour
 
     private void ShootBlob()
     {
+        CurrentSlime.ShootBlob();
         blobFlightRoutine = StartCoroutine(IELerpBlobOverCurve());
     }
 
@@ -195,6 +200,8 @@ public class SlimeManager : MonoBehaviour
                 _biggestBoi = _slime;
             }
         }
+
+        if(CurrentSlime != null && CurrentSlime.SlimeSize == _sizeRecord) { _biggestBoi = CurrentSlime; }
 
         CurrentSlime = _biggestBoi;
         CurrentSlime.PrimeSlime = true;

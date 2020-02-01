@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class Slime : MonoBehaviour
 {
+
     [SerializeField] LayerMask slimeMask;
     [SerializeField] float maxSlimeDetectionRange = 3;
 
@@ -11,6 +13,7 @@ public class Slime : MonoBehaviour
     public bool PrimeSlime = false;
 
     public int SlimeSize = 1;
+
 
     private void Awake()
     {
@@ -25,6 +28,13 @@ public class Slime : MonoBehaviour
     public void AddBlobToSlime()
     {
         SlimeSize++;
+        UpdateSlimeScale();
+        SlimeManager.Instance.CheckWhichSlimeIsTheBiggest();
+    }
+
+    public void ShootBlob()
+    {
+        SlimeSize--;
         UpdateSlimeScale();
         SlimeManager.Instance.CheckWhichSlimeIsTheBiggest();
     }
