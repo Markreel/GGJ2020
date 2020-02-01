@@ -103,7 +103,6 @@ public class SlimeManager : MonoBehaviour
         moveVelocity += CurrentSlime.transform.forward * vInput;
         moveVelocity += CurrentSlime.transform.right * hInput;
 
-
         moveVelocity = moveVelocity.normalized;
         moveVelocity *= movementSpeed;
 
