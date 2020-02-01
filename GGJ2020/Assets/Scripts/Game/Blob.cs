@@ -27,6 +27,7 @@ public class Blob : MonoBehaviour
         else
         {
             SlimeManager.Instance.CreateNewSlime(transform.position + Vector3.up / 10);
+            //SlimeManager.Instance.CheckWhichSlimeIsTheBiggest(true);
         }
 
         Destroy(gameObject);
