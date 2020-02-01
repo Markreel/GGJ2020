@@ -208,6 +208,8 @@ public class SlimeManager : MonoBehaviour
             }
         }
 
+        if(_sizeRecord <= 1) { SceneRegulator.Instance.RestartScene(); }
+
         if(CurrentSlime != null && CurrentSlime.SlimeSize == _sizeRecord) { _biggestBoi = CurrentSlime; }
 
         CurrentSlime = _biggestBoi;

@@ -5,8 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class SceneRegulator : MonoBehaviour
 {
+    public static SceneRegulator Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public void SwitchScene(int index)
     {
         SceneManager.LoadScene(index);
+    }
+
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
