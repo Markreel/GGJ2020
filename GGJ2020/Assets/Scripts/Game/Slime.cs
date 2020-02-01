@@ -19,7 +19,7 @@ public class Slime : MonoBehaviour
 
     private void Update()
     {
-        CheckForNearbySlimes();
+        //CheckForNearbySlimes();
     }
 
     public void AddBlobToSlime()
@@ -37,7 +37,8 @@ public class Slime : MonoBehaviour
     public void MergeWithOtherSlime(Slime _otherSlime)
     {
         SlimeSize += _otherSlime.SlimeSize;
- 
+        SlimeManager.Instance.RemoveSlime(_otherSlime);
+        UpdateSlimeScale();
     }
 
     private void CheckForNearbySlimes()
@@ -57,7 +58,7 @@ public class Slime : MonoBehaviour
     {
         Slime _slime = collision.transform.GetComponent<Slime>();
 
-        if (_slime != null)
+        if (_slime != null && !_slime.PrimeSlime)
         {
             MergeWithOtherSlime(_slime);
         }

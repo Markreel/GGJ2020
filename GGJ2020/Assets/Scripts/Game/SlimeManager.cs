@@ -90,7 +90,7 @@ public class SlimeManager : MonoBehaviour
 
     private void CustomGravity()
     {
-        rigidbodyOfCurrentSlime.velocity = Vector3.down * gravityAmplifier;
+        rigidbodyOfCurrentSlime.velocity = new Vector3(rigidbodyOfCurrentSlime.velocity.x, - gravityAmplifier, rigidbodyOfCurrentSlime.velocity.z);
     }
 
     private void Movement()
@@ -109,8 +109,11 @@ public class SlimeManager : MonoBehaviour
         rigidbodyOfCurrentSlime.velocity = moveVelocity;
 
         Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
-        CurrentSlime.transform.localRotation = Quaternion.Slerp(CurrentSlime.transform.localRotation, WantedRotation, Time.deltaTime);
+        CurrentSlime.transform.localRotation = Quaternion.Slerp(CurrentSlime.transform.localRotation, WantedRotation, Time.deltaTime * 15);
+
+        Debug.Log(moveVelocity);
     }
+   
     #endregion
 
     #region BlobRelated
@@ -175,6 +178,10 @@ public class SlimeManager : MonoBehaviour
         CheckWhichSlimeIsTheBiggest();
     }
 
+    #endregion
+
+    #region PublicFunctions
+
     public void CheckWhichSlimeIsTheBiggest()
     {
         float _sizeRecord = 0;
@@ -198,5 +205,15 @@ public class SlimeManager : MonoBehaviour
         thirdPersonCam.m_LookAt = CurrentSlime.transform;
         thirdPersonCam.m_Follow = CurrentSlime.transform;
     }
+
+    public void RemoveSlime(Slime _slime)
+    {
+        slimeList.Remove(_slime);
+        Destroy(_slime.gameObject);
+
+        CheckWhichSlimeIsTheBiggest();
+    }
+
     #endregion
+
 }
