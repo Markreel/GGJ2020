@@ -5,6 +5,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [Header("Stats")]
+    public float maxDistance = 5;
     public float movementSpeed;
     public float gravityAmplifier;
 
@@ -48,6 +49,8 @@ public class Movement : MonoBehaviour
 
     protected virtual Vector3 Move()
     {
+        if(Vector3.Distance(transform.position, SlimeTest.Instance.transform.position) > maxDistance) { return rb.velocity = Vector3.zero; }
+
         Vector3 moveVelocity = Vector3.zero;
 
         Quaternion walkDir = Quaternion.Euler(transform.rotation.eulerAngles.x, forwardTranform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);

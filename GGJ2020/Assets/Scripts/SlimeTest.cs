@@ -5,11 +5,14 @@ using Cinemachine;
 
 public class SlimeTest : MonoBehaviour
 {
+    public static SlimeTest Instance;
+
     public enum States { Idle, Moving, Dead }
     private States currentState;
 
     [SerializeField] CinemachineFreeLook thirdPersonCam;
-    [SerializeField] List<GameObject> slimeList = new List<GameObject>();
+    [SerializeField] List<Slime> slimeList = new List<Slime>();
+    private Slime currentSlime;
 
 
     //[SerializeField] CinemachineVirtualCamera vCam;
@@ -31,6 +34,11 @@ public class SlimeTest : MonoBehaviour
     [SerializeField] string verticalViewInputString = "VerticalView";
 
     private bool isAiming = true;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -93,5 +101,31 @@ public class SlimeTest : MonoBehaviour
         //}
 
         yield return null;
+    }
+
+    public void CreateNewSlime(Vector3 _position)
+    {
+        GameObject _newSlime = Instantiate(newSlimePrefab, _position, newSlimePrefab.transform.rotation);
+
+
+
+        CheckWhichSlimeIsTheBiggest();
+    }
+
+    private void CheckWhichSlimeIsTheBiggest()
+    {
+        float _sizeRecord = 0;
+        Slime _biggestBoi = null;
+
+        foreach (var _slime in slimeList)
+        {
+            if (_slime.SlimeSize > _sizeRecord)
+            {
+                _sizeRecord = _slime.SlimeSize;
+                _biggestBoi = _slime;
+            }
+        }
+
+        currentSlime = _biggestBoi;
     }
 }

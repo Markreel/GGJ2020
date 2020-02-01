@@ -17,6 +17,16 @@ public class Blob : MonoBehaviour
 
         }
 
+        //else if (_other.gameObject.layer == 9)
+        //{
+
+        //}
+
+        else
+        {
+
+        }
+
         
     }
 

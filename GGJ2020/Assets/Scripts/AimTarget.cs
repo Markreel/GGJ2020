@@ -23,9 +23,9 @@ public class AimTarget : MonoBehaviour
 
     private void DrawLine()
     {
-        Vector3 p0 = transform.position / 2;
-        Vector3 p2 = slime.position / 2;
-        Vector3 p1 = (p0) + (p2);
+        Vector3 p0 = transform.position;
+        Vector3 p2 = slime.position;
+        Vector3 p1 = (p0 / 2) + (p2 / 2);
 
         p1.y += lineHeight;
         p1.x += midPointPosition;
@@ -41,7 +41,18 @@ public class AimTarget : MonoBehaviour
 
     private Vector3 CalcQuadraticBezierCurve(float t, Vector3 p0, Vector3 p1, Vector3 p2)
     {
-        Vector3 point = (1 - t) * 2 * p0 + 2 * (1 - t) * t * p1 + t * 2 * p2;
-        return point;
+        //Vector3 point = (1 - t) * 2 * p0 + 2 * (1 - t) * t * p1 + t * 2 * p2;
+        //Vector3 point = Mathf.Pow(1 - t, 2) * p0 + 2 * t * (1 - t) * p1 + Mathf.Pow(t,2) * p2;
+        //return point;
+
+
+        float u = 1 - t;
+        float tt = t * t;
+        float uu = u * u;
+        Vector3 p = uu * p0;
+        p += 2 * u * t * p1;
+        p += tt * p2;
+        return p;
+
     }
 }
