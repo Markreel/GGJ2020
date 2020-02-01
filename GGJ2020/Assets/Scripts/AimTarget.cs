@@ -25,14 +25,15 @@ public class AimTarget : MonoBehaviour
     {
         Vector3 p0 = transform.position / 2;
         Vector3 p2 = slime.position / 2;
-        Vector3 p1 = (p0 / 2) + (p2 / 2);
+        Vector3 p1 = (p0) + (p2);
+
         p1.y += lineHeight;
         p1.x += midPointPosition;
         p1.z += midPointPosition;
         List<Vector3> _points = new List<Vector3>();
         for (float i = 0; i < 1; i += 0.02f)
         {
-            _points.Add(CalcQuadraticBezierCurve(i, transform.position/2, p1, slime.position/2));
+            _points.Add(CalcQuadraticBezierCurve(i, p0, p1, p2));
         }
         Points = _points.ToArray();
         lr.SetPositions(Points);
