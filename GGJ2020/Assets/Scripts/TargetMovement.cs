@@ -2,35 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class TargetMovement : MonoBehaviour
 {
     [Header("Stats")]
-    public float movementSpeed;
+    public float speed;
+    public float rayHeight = 10f;
+    public float rayLength = 2f;
 
     [Header("Input")]
     public string horizontalJoystick = "Horizontal";
     public string verticalJoystick = "Vertical";
     public Transform forwardTranform;
 
+
+    private Vector3 pos;
     private float vInput = 0f;
     private float hInput = 0f;
 
-    private Rigidbody rb;
-
-    private void Awake()
+    private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        OnEnterAimMode();
     }
 
-    private void FixedUpdate()
+    private void SetPos(Vector3 point)
     {
-        Move();
+        pos = point;
+        transform.position = pos;
     }
 
-    void Update()
+    private void Update()
     {
         GetInput();
+        Movement();
     }
 
     private void GetInput()
@@ -39,20 +42,28 @@ public class TargetMovement : MonoBehaviour
         hInput = Input.GetAxis(horizontalJoystick);
     }
 
-    private void Move()
+    private void Movement()
     {
-        Vector3 moveVelocity = Vector3.zero;
+        Vector3 wantedPos = pos;
 
-        Quaternion walkDir = Quaternion.Euler(transform.rotation.eulerAngles.x, forwardTranform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
-        transform.rotation = walkDir;
+        Quaternion lookDir = Quaternion.Euler(transform.rotation.eulerAngles.x, forwardTranform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+        transform.rotation = lookDir;
 
-        moveVelocity += transform.forward * vInput;
-        moveVelocity += transform.right * hInput;
+        Vector3 moveDir = transform.forward * vInput;
+        moveDir += transform.right * hInput;
+        moveDir.y = 0;
+        moveDir = moveDir.normalized;
 
+        wantedPos += moveDir * speed;
 
-        moveVelocity = moveVelocity.normalized;
-        moveVelocity *= movementSpeed;
+        if (Physics.Raycast(wantedPos + Vector3.up * rayHeight, Vector3.down * rayLength, out RaycastHit hit))
+        {
+            SetPos(hit.point);
+        }
+    }
 
-        rb.velocity = moveVelocity;
+    private void OnEnterAimMode()
+    {
+        SetPos(forwardTranform.forward);
     }
 }
