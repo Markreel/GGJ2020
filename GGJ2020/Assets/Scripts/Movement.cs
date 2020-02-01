@@ -49,7 +49,7 @@ public class Movement : MonoBehaviour
 
     protected virtual Vector3 Move()
     {
-        if(Vector3.Distance(transform.position, SlimeTest.Instance.transform.position) > maxDistance) { return rb.velocity = Vector3.zero; }
+        if(Vector3.Distance(transform.position, SlimeManager.Instance.transform.position) > maxDistance) { return rb.velocity = Vector3.zero; }
 
         Vector3 moveVelocity = Vector3.zero;
 

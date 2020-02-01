@@ -24,7 +24,7 @@ public class AimTarget : MonoBehaviour
     private void DrawLine()
     {
         Vector3 p0 = transform.position;
-        Vector3 p2 = slime.position;
+        Vector3 p2 = SlimeManager.Instance.CurrentSlime.transform.position;
         Vector3 p1 = (p0 / 2) + (p2 / 2);
 
         p1.y += lineHeight;
