@@ -8,6 +8,7 @@ public class TargetMovement : MonoBehaviour
     public float speed;
     public float rayHeight = 10f;
     public float rayLength = 2f;
+    public float yThreshold = 0.2f;
 
     [Header("Input")]
     public string horizontalJoystick = "Horizontal";
@@ -33,7 +34,10 @@ public class TargetMovement : MonoBehaviour
     private void Update()
     {
         GetInput();
-        Movement();
+        if (vInput + hInput != 0)
+        {
+            Movement();
+        }
     }
 
     private void GetInput()
@@ -58,7 +62,15 @@ public class TargetMovement : MonoBehaviour
 
         if (Physics.Raycast(wantedPos + Vector3.up * rayHeight, Vector3.down * rayLength, out RaycastHit hit))
         {
-            SetPos(hit.point);
+            Vector3 newPos = hit.point;
+            if (newPos.y < transform.position.y - yThreshold || newPos.y > transform.position.y + yThreshold)
+            {
+                newPos.x = transform.position.x;
+                newPos.z = transform.position.z;
+                ExtDebug.DrawBox(newPos, transform.localScale / 2, Quaternion.identity, Color.blue);
+                newPos.y = (newPos.y > transform.position.y)? transform.position.y + speed : transform.position.y - speed;
+            }
+            SetPos(newPos);
         }
     }
 
