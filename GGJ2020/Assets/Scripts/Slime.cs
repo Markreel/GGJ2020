@@ -4,12 +4,30 @@ using UnityEngine;
 
 public class Slime : MonoBehaviour
 {
-    [SerializeField] int scaleFactor;
+    [SerializeField] float scaleFactor;
+    public bool PrimeSlime = false;
 
     public int SlimeSize = 1;
 
-    public void ScaleUp()
+    private void Awake()
+    {
+        UpdateSlimeScale();
+    }
+
+    public void AddBlobToSlime()
+    {
+        SlimeSize++;
+        UpdateSlimeScale();
+        SlimeManager.Instance.CheckWhichSlimeIsTheBiggest();
+    }
+
+    public void UpdateSlimeScale()
     {
         transform.localScale = Vector3.one * SlimeSize * scaleFactor;
+    }
+
+    public void MergeWithOtherSlime()
+    {
+
     }
 }

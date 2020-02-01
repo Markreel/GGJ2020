@@ -12,22 +12,24 @@ public class Blob : MonoBehaviour
 
     private void OnTriggerEnter(Collider _other)
     {
-        if(_other.gameObject.layer == 9)
+        Slime _slime = _other.gameObject.GetComponent<Slime>();
+
+        if (_slime != null)
         {
+            if(!_slime.PrimeSlime)
+            {
+                _slime.AddBlobToSlime();
+            }
 
+            else { return; }
         }
-
-        //else if (_other.gameObject.layer == 9)
-        //{
-
-        //}
 
         else
         {
-
+            SlimeManager.Instance.CreateNewSlime(transform.position);
         }
 
-        
+        Destroy(gameObject);
     }
 
 

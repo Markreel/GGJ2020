@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class SlimeTest : MonoBehaviour
+public class SlimeManager : MonoBehaviour
 {
-    public static SlimeTest Instance;
+    public static SlimeManager Instance;
 
     public enum States { Idle, Moving, Dead }
     private States currentState;
 
     [SerializeField] CinemachineFreeLook thirdPersonCam;
     [SerializeField] List<Slime> slimeList = new List<Slime>();
-    private Slime currentSlime;
+    public Slime CurrentSlime;
+    private Rigidbody rigidbodyOfCurrentSlime;
 
 
     //[SerializeField] CinemachineVirtualCamera vCam;
@@ -33,11 +34,24 @@ public class SlimeTest : MonoBehaviour
     [SerializeField] string horizontalViewInputString = "HorizontalView";
     [SerializeField] string verticalViewInputString = "VerticalView";
 
+    [Header("Stats")]
+    public float movementSpeed;
+    public float gravityAmplifier;
+
+    [Header("Input")]
+    public string horizontalJoystick = "Horizontal";
+    public string verticalJoystick = "Vertical";
+    public Transform forwardTranform;
+
+    private float vInput = 0f;
+    private float hInput = 0f;
+
     private bool isAiming = true;
 
     private void Awake()
     {
         Instance = this;
+        CheckWhichSlimeIsTheBiggest();
     }
 
     private void Start()
@@ -47,6 +61,7 @@ public class SlimeTest : MonoBehaviour
 
     private void Update()
     {
+        GetInput();
         if (Input.GetButtonDown(aimInputString)) { ToggleAim(); }
         if (Input.GetButtonDown(fireInputString) && isAiming) { ShootBlob(); }
     }
@@ -61,13 +76,52 @@ public class SlimeTest : MonoBehaviour
         thirdPersonCam.m_XAxis.m_InputAxisValue = 0;
         thirdPersonCam.m_YAxis.m_InputAxisValue = 0;
 
-        aimTarget.transform.position = transform.position;
+        aimTarget.transform.position = CurrentSlime.transform.position;
         aimTarget.gameObject.SetActive(isAiming);
     }
 
     private void ShootBlob()
     {
         blobFlightRoutine = StartCoroutine(IELerpBlobOverCurve());
+    }
+
+    //
+
+    private void FixedUpdate()
+    {
+        Movement();
+        CustomGravity();
+    }
+
+    private void GetInput()
+    {
+        vInput = Input.GetAxis(verticalJoystick);
+        hInput = Input.GetAxis(horizontalJoystick);
+    }
+
+    private void CustomGravity()
+    {
+        rigidbodyOfCurrentSlime.velocity = new Vector3(rigidbodyOfCurrentSlime.velocity.x, -gravityAmplifier, rigidbodyOfCurrentSlime.velocity.z);
+    }
+
+    private void Movement()
+    {
+        Vector3 moveVelocity = Vector3.zero;
+
+        Quaternion walkDir = Quaternion.Euler(CurrentSlime.transform.rotation.eulerAngles.x, forwardTranform.rotation.eulerAngles.y, CurrentSlime.transform.rotation.eulerAngles.z);
+        CurrentSlime.transform.rotation = walkDir;
+
+        moveVelocity += CurrentSlime.transform.forward * vInput;
+        moveVelocity += CurrentSlime.transform.right * hInput;
+
+
+        moveVelocity = moveVelocity.normalized;
+        moveVelocity *= movementSpeed;
+
+        rigidbodyOfCurrentSlime.velocity = moveVelocity;
+
+        Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
+        CurrentSlime.transform.localRotation = Quaternion.Slerp(CurrentSlime.transform.localRotation, WantedRotation, Time.deltaTime * 5);
     }
 
     private IEnumerator IELerpBlobOverCurve()
@@ -106,19 +160,20 @@ public class SlimeTest : MonoBehaviour
     public void CreateNewSlime(Vector3 _position)
     {
         GameObject _newSlime = Instantiate(newSlimePrefab, _position, newSlimePrefab.transform.rotation);
-
-
+        slimeList.Add(_newSlime.GetComponent<Slime>());
 
         CheckWhichSlimeIsTheBiggest();
     }
 
-    private void CheckWhichSlimeIsTheBiggest()
+    public void CheckWhichSlimeIsTheBiggest()
     {
         float _sizeRecord = 0;
         Slime _biggestBoi = null;
 
         foreach (var _slime in slimeList)
         {
+            _slime.PrimeSlime = false;
+
             if (_slime.SlimeSize > _sizeRecord)
             {
                 _sizeRecord = _slime.SlimeSize;
@@ -126,6 +181,11 @@ public class SlimeTest : MonoBehaviour
             }
         }
 
-        currentSlime = _biggestBoi;
+        CurrentSlime = _biggestBoi;
+        CurrentSlime.PrimeSlime = true;
+        rigidbodyOfCurrentSlime = CurrentSlime.GetComponent<Rigidbody>();
+
+        thirdPersonCam.m_LookAt = CurrentSlime.transform;
+        thirdPersonCam.m_Follow = CurrentSlime.transform;
     }
 }
