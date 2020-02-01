@@ -49,17 +49,11 @@ public class TargetMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Mathf.Abs(Vector3.Distance(transform.position, playerTransform.position)) - 
-            Mathf.Abs(transform.position.y - playerTransform.position.y) <= maxDistanceFromPlayer)
+        Movement();
+        StopFloating();
+        if (checkForDirection)
         {
-            Movement();
-            if (checkForDirection)
-            {
-                CustomGravity();
-            }
-        } else
-        {
-            rb.velocity = Vector3.zero;
+            CustomGravity();
         }
     }
 
@@ -86,12 +80,21 @@ public class TargetMovement : MonoBehaviour
         }
 
         Vector3 moveVelocity = Vector3.zero;
+
+
         moveVelocity += forwardVector * vInput * speed;
         moveVelocity += rightVector * hInput * speed;
 
         moveVelocity = moveVelocity.normalized * speed;
 
-        rb.velocity = moveVelocity;
+        if (Mathf.Abs(Vector3.Distance(transform.position + moveVelocity/2, playerTransform.position)) -
+            Mathf.Abs(transform.position.y - playerTransform.position.y) < maxDistanceFromPlayer)
+        {
+            rb.velocity = moveVelocity;
+        } else
+        {
+            rb.velocity = Vector3.zero;
+        }
 
         if (checkForDirection)
         {

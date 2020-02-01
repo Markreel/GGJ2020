@@ -21,6 +21,7 @@ public class SlimeManager : MonoBehaviour
     [SerializeField] GameObject newSlimePrefab;
 
     [Header("Blob Settings: ")]
+    [SerializeField] TargetMovement targetMovement;
     [SerializeField] AimTarget aimTarget;
     [SerializeField] GameObject blobPrefab;
     [SerializeField] float blobFlightDuration = 1;
@@ -156,15 +157,6 @@ public class SlimeManager : MonoBehaviour
             //yield return new WaitForSeconds(blobFlightDuration / _points.Length - 1);
         }
 
-        //while (_timeValue < blobFlightDuration)
-        //{
-        //    _timeValue += Time.deltaTime;
-        //    blob.transform.position = Vector3.Lerp();
-
-
-        //    yield return null;
-        //}
-
         yield return null;
     }
 
@@ -196,12 +188,7 @@ public class SlimeManager : MonoBehaviour
             }
         }
 
-        CurrentSlime = _biggestBoi;
-        CurrentSlime.PrimeSlime = true;
-        rigidbodyOfCurrentSlime = CurrentSlime.GetComponent<Rigidbody>();
-
-        thirdPersonCam.m_LookAt = CurrentSlime.transform;
-        thirdPersonCam.m_Follow = CurrentSlime.transform;
+        OnNewPrimeSlime(_biggestBoi);
     }
 
     public void RemoveSlime(Slime _slime)
@@ -210,6 +197,18 @@ public class SlimeManager : MonoBehaviour
         Destroy(_slime.gameObject);
 
         CheckWhichSlimeIsTheBiggest();
+    }
+
+    public void OnNewPrimeSlime(Slime primeSlime)
+    {
+        CurrentSlime = primeSlime;
+        CurrentSlime.PrimeSlime = true;
+        rigidbodyOfCurrentSlime = CurrentSlime.GetComponent<Rigidbody>();
+
+        thirdPersonCam.m_LookAt = CurrentSlime.transform;
+        thirdPersonCam.m_Follow = CurrentSlime.transform;
+
+        targetMovement.playerTransform = primeSlime.transform;
     }
 
     #endregion
