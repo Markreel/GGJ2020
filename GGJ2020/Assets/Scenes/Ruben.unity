@@ -264,7 +264,7 @@ MonoBehaviour:
   aimTarget: {fileID: 1000563074}
   blobPrefab: {fileID: 5148031738388703472, guid: 636eeebbd3be5844aa6a36ab8e36746a,
     type: 3}
-  blobFlightDuration: 0.01
+  blobFlightDuration: 0.1
   blobFlightCurve:
     serializedVersion: 2
     m_Curve:
@@ -296,7 +296,7 @@ MonoBehaviour:
   horizontalViewInputString: HorizontalView
   verticalViewInputString: VerticalView
   movementSpeed: 6
-  gravityAmplifier: 2
+  gravityAmplifier: 5
   camTransform: {fileID: 1076898658}
 --- !u!1 &695180279
 GameObject:
@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 1000563073}
   - component: {fileID: 1000563071}
   - component: {fileID: 1000563072}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1463,6 +1463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd468b91f4c5cb14e9fe9172c72a6813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slimeMask:
+    serializedVersion: 2
+    m_Bits: 512
+  maxSlimeDetectionRange: 3
   scaleFactor: 1
   PrimeSlime: 0
   SlimeSize: 1
@@ -1515,7 +1519,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d435ed9c146f9a14bb9a1698ce0ec5a4, type: 2}
+  - {fileID: 2100000, guid: a2db40cb5e86b1146b3eb14ddc35ba62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
