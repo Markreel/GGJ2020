@@ -13,13 +13,16 @@ public class fmodexample : MonoBehaviour
         audioClip = FMODUnity.RuntimeManager.CreateInstance(LanaGra);
         audioClip.start();
 
-        StartCoroutine(IETest());
+        //StartCoroutine(IETest());
+    }
+
+    public void SetClip(float _value)
+    {
+        audioClip.setParameterByName("moving", _value);
     }
 
     void Update()
     {
-
-
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(audioClip, GetComponent<Transform>(), GetComponent<Rigidbody>());
     }
 
