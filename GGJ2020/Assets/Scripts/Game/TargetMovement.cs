@@ -84,8 +84,11 @@ public class TargetMovement : MonoBehaviour
 
         rb.velocity = moveVelocity;
 
-        Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
-        transform.localRotation = WantedRotation;
+        if (checkForDirection)
+        {
+            Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
+            transform.localRotation = WantedRotation;
+        }
     }
 
     private void CustomGravity()
