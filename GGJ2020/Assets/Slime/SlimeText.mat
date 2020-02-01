@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SlimeText
-  m_Shader: {fileID: -6465566751694194690, guid: 13ec026dd66ff9c4da2c70b9de2418b4,
+  m_Shader: {fileID: -6465566751694194690, guid: 168b88eb083c2c34f818454fbc81b49a,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -38,7 +38,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Boolean_2F393982: 1
-    - Vector1_10A035D0: -4.21
+    - Vector1_10A035D0: 3.48
     - Vector1_2EDEFD26: 1
     - Vector1_2FB2A353: 0.04
     - Vector1_3376FCF3: 0.01

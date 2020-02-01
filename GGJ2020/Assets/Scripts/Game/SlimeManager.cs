@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using FMODUnity;
 
 public class SlimeManager : MonoBehaviour
 {
     private static SlimeManager instance;
     public static SlimeManager Instance { get { return instance; } private set { instance = value; } }
 
-    public enum States { Idle, Moving, Dead }
+    public enum States { Idle, Moving, Dead };
     private States currentState;
 
     [SerializeField] CinemachineFreeLook thirdPersonCam;
@@ -19,9 +20,9 @@ public class SlimeManager : MonoBehaviour
 
     //[SerializeField] CinemachineVirtualCamera vCam;
     [SerializeField] GameObject newSlimePrefab;
+    [SerializeField] StudioEventEmitter studioEventEmitter;
 
     [Header("Blob Settings: ")]
-    [SerializeField] TargetMovement targetMovement;
     [SerializeField] AimTarget aimTarget;
     [SerializeField] GameObject blobPrefab;
     [SerializeField] float blobFlightDuration = 1;
@@ -46,6 +47,9 @@ public class SlimeManager : MonoBehaviour
     private float hInput = 0f;
 
     private bool isAiming = true;
+
+    private bool aimInput = false;
+    private bool fireInput = false;
 
     private void Awake()
     {
@@ -75,7 +79,6 @@ public class SlimeManager : MonoBehaviour
     private void Update()
     {
         GetInput();
-        
     }
 
     private void GetInput()
@@ -83,8 +86,12 @@ public class SlimeManager : MonoBehaviour
         vInput = Input.GetAxis(verticalJoystick);
         hInput = Input.GetAxis(horizontalJoystick);
 
-        if (Input.GetButtonDown(aimInputString)) { ToggleAim(); }
-        if (Input.GetButtonDown(fireInputString) && isAiming) { ShootBlob(); }
+        if (Input.GetAxisRaw(aimInputString) != 0 && !aimInput) { ToggleAim(); aimInput = true; }
+        if (Input.GetAxisRaw(fireInputString) != 0 && isAiming && !fireInput) { ShootBlob(); fireInput = true; }
+
+        if (Input.GetAxisRaw(aimInputString) == 0 && aimInput) { ToggleAim(); aimInput = false; } 
+        if (Input.GetAxisRaw(fireInputString) == 0 && fireInput) { fireInput = false; }
+
     }
 
     #region Movement
@@ -111,6 +118,9 @@ public class SlimeManager : MonoBehaviour
 
         Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
         CurrentSlime.transform.localRotation = Quaternion.Slerp(CurrentSlime.transform.localRotation, WantedRotation, Time.deltaTime * 5);
+
+        if(moveVelocity != Vector3.zero) { studioEventEmitter.Params[0].Value = 1; }
+        else { studioEventEmitter.Params[0].Value = 0; }
     }
    
     #endregion
@@ -133,6 +143,7 @@ public class SlimeManager : MonoBehaviour
 
     private void ShootBlob()
     {
+        CurrentSlime.ShootBlob();
         blobFlightRoutine = StartCoroutine(IELerpBlobOverCurve());
     }
 
@@ -156,6 +167,15 @@ public class SlimeManager : MonoBehaviour
 
             //yield return new WaitForSeconds(blobFlightDuration / _points.Length - 1);
         }
+
+        //while (_timeValue < blobFlightDuration)
+        //{
+        //    _timeValue += Time.deltaTime;
+        //    blob.transform.position = Vector3.Lerp();
+
+
+        //    yield return null;
+        //}
 
         yield return null;
     }
@@ -188,7 +208,14 @@ public class SlimeManager : MonoBehaviour
             }
         }
 
-        OnNewPrimeSlime(_biggestBoi);
+        if(CurrentSlime != null && CurrentSlime.SlimeSize == _sizeRecord) { _biggestBoi = CurrentSlime; }
+
+        CurrentSlime = _biggestBoi;
+        CurrentSlime.PrimeSlime = true;
+        rigidbodyOfCurrentSlime = CurrentSlime.GetComponent<Rigidbody>();
+
+        thirdPersonCam.m_LookAt = CurrentSlime.transform;
+        thirdPersonCam.m_Follow = CurrentSlime.transform;
     }
 
     public void RemoveSlime(Slime _slime)
@@ -197,18 +224,6 @@ public class SlimeManager : MonoBehaviour
         Destroy(_slime.gameObject);
 
         CheckWhichSlimeIsTheBiggest();
-    }
-
-    public void OnNewPrimeSlime(Slime primeSlime)
-    {
-        CurrentSlime = primeSlime;
-        CurrentSlime.PrimeSlime = true;
-        rigidbodyOfCurrentSlime = CurrentSlime.GetComponent<Rigidbody>();
-
-        thirdPersonCam.m_LookAt = CurrentSlime.transform;
-        thirdPersonCam.m_Follow = CurrentSlime.transform;
-
-        targetMovement.playerTransform = primeSlime.transform;
     }
 
     #endregion
