@@ -109,9 +109,7 @@ public class SlimeManager : MonoBehaviour
         rigidbodyOfCurrentSlime.velocity = moveVelocity;
 
         Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
-        CurrentSlime.transform.localRotation = Quaternion.Slerp(CurrentSlime.transform.localRotation, WantedRotation, Time.deltaTime * 15);
-
-        Debug.Log(moveVelocity);
+        CurrentSlime.transform.localRotation = Quaternion.Slerp(CurrentSlime.transform.localRotation, WantedRotation, Time.deltaTime * 5);
     }
    
     #endregion
@@ -128,7 +126,7 @@ public class SlimeManager : MonoBehaviour
         thirdPersonCam.m_XAxis.m_InputAxisValue = 0;
         thirdPersonCam.m_YAxis.m_InputAxisValue = 0;
 
-        aimTarget.transform.position = CurrentSlime.transform.position;
+        aimTarget.transform.position = CurrentSlime.transform.position + Vector3.up * 0.2f;
         aimTarget.gameObject.SetActive(isAiming);
     }
 
@@ -148,7 +146,7 @@ public class SlimeManager : MonoBehaviour
         for (int i = 1; i < _points.Length - 2; i++)
         {
             float _timeValue = 0;
-            while (_timeValue < 1)
+            while (_timeValue < 1 && _blob != null)
             {
                 _timeValue += Time.deltaTime / (blobFlightDuration / _points.Length);
                 _blob.transform.position = Vector3.Lerp(_points[i], _points[i + 1], _timeValue);
