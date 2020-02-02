@@ -31,7 +31,6 @@ public class TargetMovement : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         layerMask = LayerMask.GetMask("Default");
     }
 
