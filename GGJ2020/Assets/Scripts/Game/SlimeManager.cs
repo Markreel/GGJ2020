@@ -57,7 +57,8 @@ public class SlimeManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-        } else
+        }
+        else
         {
             Destroy(instance.gameObject);
             instance = this;
@@ -90,7 +91,7 @@ public class SlimeManager : MonoBehaviour
         if (Input.GetAxisRaw(aimInputString) != 0 && !aimInput) { ToggleAim(); aimInput = true; }
         if (Input.GetAxisRaw(fireInputString) != 0 && isAiming && !fireInput) { StartShootAnimation(); fireInput = true; }
 
-        if (Input.GetAxisRaw(aimInputString) == 0 && aimInput) { ToggleAim(); aimInput = false; } 
+        if (Input.GetAxisRaw(aimInputString) == 0 && aimInput) { ToggleAim(); aimInput = false; }
         if (Input.GetAxisRaw(fireInputString) == 0 && fireInput) { fireInput = false; }
 
     }
@@ -99,7 +100,7 @@ public class SlimeManager : MonoBehaviour
 
     private void CustomGravity()
     {
-        rigidbodyOfCurrentSlime.velocity = new Vector3(rigidbodyOfCurrentSlime.velocity.x, - gravityAmplifier, rigidbodyOfCurrentSlime.velocity.z);
+        rigidbodyOfCurrentSlime.velocity = new Vector3(rigidbodyOfCurrentSlime.velocity.x, -gravityAmplifier, rigidbodyOfCurrentSlime.velocity.z);
     }
 
     private void Movement()
@@ -134,7 +135,7 @@ public class SlimeManager : MonoBehaviour
     {
         studioEventEmitter.Play();
     }
-   
+
     #endregion
 
     #region BlobRelated
@@ -179,7 +180,10 @@ public class SlimeManager : MonoBehaviour
             {
                 _timeValue += Time.deltaTime / (blobFlightDuration / _points.Length);
                 _blob.transform.position = Vector3.Lerp(_points[i], _points[i + 1], _timeValue);
+
+//#if !UNITY_EDITOR
                 yield return new WaitForSeconds(0.01f);
+//#endif
                 yield return null;
             }
 
@@ -227,9 +231,9 @@ public class SlimeManager : MonoBehaviour
             }
         }
 
-        if(_checkIfDead && _sizeRecord <= 1) { SceneRegulator.Instance.RestartScene(); }
+        if (_checkIfDead && _sizeRecord <= 1) { SceneRegulator.Instance.RestartScene(); }
 
-        if(CurrentSlime != null && CurrentSlime.SlimeSize == _sizeRecord) { _biggestBoi = CurrentSlime; }
+        if (CurrentSlime != null && CurrentSlime.SlimeSize == _sizeRecord) { _biggestBoi = CurrentSlime; }
 
         OnNewPrimeSlime(_biggestBoi);
     }
