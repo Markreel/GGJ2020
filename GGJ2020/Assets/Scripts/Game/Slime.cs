@@ -53,6 +53,7 @@ public class Slime : MonoBehaviour
         SlimeSize += _otherSlime.SlimeSize;
         SlimeManager.Instance.RemoveSlime(_otherSlime);
         UpdateSlimeScale();
+        AnimateSpawn();
     }
 
     public void AnimateShoot()
@@ -62,7 +63,7 @@ public class Slime : MonoBehaviour
 
     public void AnimateSpawn()
     {
-        anim.SetTrigger("Shoot");
+        anim.SetTrigger("Spawn");
     }
 
     public void ToggleWalk(bool _value)
