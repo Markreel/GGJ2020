@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4618447701764988852}
   - component: {fileID: 192388469539128084}
   - component: {fileID: 8920323025685756440}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 115965529108719785}
   - component: {fileID: 1699411473737958636}
   - component: {fileID: 2493712209984674987}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 8267879081650262718}
   - component: {fileID: 169786598103416146}
   - component: {fileID: 6087380901786369706}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 4650447129929786281}
   - component: {fileID: 6957271251892968415}
   - component: {fileID: 9070401093652394405}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1111637489037074979}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: group3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 1192675377966314029}
   - component: {fileID: 3765980474212766266}
   - component: {fileID: 5446580720868993531}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 4182841501015823447}
   - component: {fileID: 4630198834627056878}
   - component: {fileID: 1118047417577335459}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3058580066035946323}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: group1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -546,7 +546,7 @@ GameObject:
   - component: {fileID: 7900015938140106196}
   - component: {fileID: 7700104165801214304}
   - component: {fileID: 6113068713170085134}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -624,7 +624,7 @@ GameObject:
   - component: {fileID: 2858382669603418548}
   - component: {fileID: 9120560243608751458}
   - component: {fileID: 1274651620138839917}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,7 +702,7 @@ GameObject:
   - component: {fileID: 1957074638522568133}
   - component: {fileID: 8220180904716720689}
   - component: {fileID: 1367737222171628336}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -780,7 +780,7 @@ GameObject:
   - component: {fileID: 550728391181563217}
   - component: {fileID: 7569630972245955947}
   - component: {fileID: 1778698223758467783}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -858,7 +858,7 @@ GameObject:
   - component: {fileID: 4526302066866259927}
   - component: {fileID: 2180400627387156369}
   - component: {fileID: 8249029216482046321}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -934,7 +934,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 289116222047396654}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: group4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -966,7 +966,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5081978866549481341}
-  m_Layer: 0
+  - component: {fileID: 1144508576}
+  - component: {fileID: 1144508575}
+  m_Layer: 2
   m_Name: textPrimeSlime2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -982,13 +984,47 @@ Transform:
   m_GameObject: {fileID: 8132807145515101550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -23.443913, y: -8.898188, z: 16.467867}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.30299, y: 0.30299, z: 0.30299}
   m_Children:
   - {fileID: 3058580066035946323}
   - {fileID: 5616648479226619470}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1144508576
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132807145515101550}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c75b7d5d35b6012418b5ada8a3c46faf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1144508575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132807145515101550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 866db1ef4b6cefa4ba0c4ce93fce07cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnAnimationEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8207675841997280652
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,7 +1036,7 @@ GameObject:
   - component: {fileID: 5556296271001028026}
   - component: {fileID: 2281770393625937772}
   - component: {fileID: 2427785538110628670}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: polySurface10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1076,7 +1112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5616648479226619470}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: group2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1091,7 +1127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8437307963065408416}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 3.2751935, z: -2.4375}
+  m_LocalPosition: {x: -0, y: 2.92, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1111637489037074979}

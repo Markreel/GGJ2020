@@ -12,6 +12,25 @@ public class SceneRegulator : MonoBehaviour
         Instance = this;
     }
 
+    public void LoadSceneAs(int index)
+    {
+        StartCoroutine(LoadSceneAsCor(index));
+    }
+
+    public IEnumerator LoadSceneAsCor(int index)
+    {
+        AsyncOperation AO = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
+        AO.allowSceneActivation = false;
+        while (AO.progress < 0.9f)
+        {
+            yield return null;
+        }
+
+        //Fade the loading screen out here
+
+        AO.allowSceneActivation = true;
+    }
+
     public void SwitchScene(int index)
     {
         SceneManager.LoadScene(index);
