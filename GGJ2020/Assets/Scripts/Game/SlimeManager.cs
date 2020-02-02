@@ -179,6 +179,7 @@ public class SlimeManager : MonoBehaviour
             {
                 _timeValue += Time.deltaTime / (blobFlightDuration / _points.Length);
                 _blob.transform.position = Vector3.Lerp(_points[i], _points[i + 1], _timeValue);
+                yield return new WaitForSeconds(0.01f);
                 yield return null;
             }
 
