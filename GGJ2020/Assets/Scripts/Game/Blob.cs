@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class Blob : MonoBehaviour
 {
-
-    void Update()
-    {
-        transform.position += Vector3.forward;
-    }
-
     private void OnTriggerEnter(Collider _other)
     {
         Slime _slime = _other.gameObject.GetComponent<Slime>();

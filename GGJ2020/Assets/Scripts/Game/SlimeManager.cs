@@ -165,7 +165,7 @@ public class SlimeManager : MonoBehaviour
 
         Vector3[] _points = aimTarget.Points;
         System.Array.Reverse(_points);
-        _blob = Instantiate(blobPrefab, _points[0], blobPrefab.transform.rotation);
+        _blob = Instantiate(blobPrefab, _points[0], Quaternion.identity);
 
         for (int i = 1; i < _points.Length - 2; i++)
         {
