@@ -400,7 +400,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604037081}
-  m_LocalRotation: {x: 0.23264846, y: -0.000000074666886, z: 0.00000025346873, w: 0.9725609}
+  m_LocalRotation: {x: 0.23264846, y: -0.00000003900568, z: 0.00000024493812, w: 0.9725609}
   m_LocalPosition: {x: 0, y: 1.7, z: -3.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1000,11 +1000,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfeb1491c8ee47a40bf4b93f6898a8c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1
   maxDistanceFromPlayer: 4
   speed: 0.1
+  gravityAmplifier: 2
   angleThreshold: 15
   rayHeight: 10
   rayLength: 2
@@ -1790,6 +1788,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThirdPersonCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 3164792501866284612, guid: 07f6c9394cd3e8345b8aeea53780cc18,
+        type: 3}
+      propertyPath: m_LookAt
+      value: 
+      objectReference: {fileID: 5006512735468866044}
+    - target: {fileID: 3164792501866284612, guid: 07f6c9394cd3e8345b8aeea53780cc18,
+        type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 5006512735468866044}
     - target: {fileID: 3164792501866284613, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1845,16 +1853,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3164792501866284612, guid: 07f6c9394cd3e8345b8aeea53780cc18,
-        type: 3}
-      propertyPath: m_LookAt
-      value: 
-      objectReference: {fileID: 5006512735468866044}
-    - target: {fileID: 3164792501866284612, guid: 07f6c9394cd3e8345b8aeea53780cc18,
-        type: 3}
-      propertyPath: m_Follow
-      value: 
-      objectReference: {fileID: 5006512735468866044}
     - target: {fileID: 3164792502906067526, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -1883,17 +1881,17 @@ PrefabInstance:
     - target: {fileID: 3164792501917815049, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.23264843
+      value: -0.23264845
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501917815049, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000007466688
+      value: 0.000000039005673
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501917815049, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000025346873
+      value: -0.00000024493812
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501917815049, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
@@ -1903,17 +1901,17 @@ PrefabInstance:
     - target: {fileID: 3164792501630972133, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.23264845
+      value: -0.23264843
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501630972133, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000002667999
+      value: -0.000000062341186
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501630972133, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00000019341199
+      value: 0.00000020194258
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501630972133, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
@@ -1934,6 +1932,52 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlimeManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
+        type: 3}
+      propertyPath: slimeList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
+        type: 3}
+      propertyPath: thirdPersonCam
+      value: 
+      objectReference: {fileID: 532752668}
+    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
+        type: 3}
+      propertyPath: slimeList.Array.data[0]
+      value: 
+      objectReference: {fileID: 680452840}
+    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
+        type: 3}
+      propertyPath: aimTarget
+      value: 
+      objectReference: {fileID: 1179278328}
+    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
+        type: 3}
+      propertyPath: camTransform
+      value: 
+      objectReference: {fileID: 604037084}
+    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
+        type: 3}
+      propertyPath: studioEventEmitter
+      value: 
+      objectReference: {fileID: 1094080182}
+    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
+        type: 3}
+      propertyPath: slimeList.Array.data[1]
+      value: 
+      objectReference: {fileID: 680452840}
+    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
+        type: 3}
+      propertyPath: newSlimePrefab
+      value: 
+      objectReference: {fileID: 1290650573045242706, guid: d2f5d4ba6b19a9c4691f92783c4d064d,
+        type: 3}
+    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
+        type: 3}
+      propertyPath: targetMov
+      value: 
+      objectReference: {fileID: 1179278331}
     - target: {fileID: 3609224397810253321, guid: 81494ba59808fc7448874872fff0f43f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1989,52 +2033,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
-        type: 3}
-      propertyPath: slimeList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
-        type: 3}
-      propertyPath: thirdPersonCam
-      value: 
-      objectReference: {fileID: 532752668}
-    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
-        type: 3}
-      propertyPath: slimeList.Array.data[0]
-      value: 
-      objectReference: {fileID: 680452840}
-    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
-        type: 3}
-      propertyPath: aimTarget
-      value: 
-      objectReference: {fileID: 1179278328}
-    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
-        type: 3}
-      propertyPath: camTransform
-      value: 
-      objectReference: {fileID: 604037084}
-    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
-        type: 3}
-      propertyPath: studioEventEmitter
-      value: 
-      objectReference: {fileID: 1094080182}
-    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
-        type: 3}
-      propertyPath: slimeList.Array.data[1]
-      value: 
-      objectReference: {fileID: 680452840}
-    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
-        type: 3}
-      propertyPath: newSlimePrefab
-      value: 
-      objectReference: {fileID: 1290650573045242706, guid: d2f5d4ba6b19a9c4691f92783c4d064d,
-        type: 3}
-    - target: {fileID: 3609224397810253322, guid: 81494ba59808fc7448874872fff0f43f,
-        type: 3}
-      propertyPath: targetMov
-      value: 
-      objectReference: {fileID: 1179278331}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81494ba59808fc7448874872fff0f43f, type: 3}
 --- !u!4 &5006512735468866044 stripped
@@ -2170,6 +2168,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime_New
       objectReference: {fileID: 0}
+    - target: {fileID: 7118118215792411221, guid: d2f5d4ba6b19a9c4691f92783c4d064d,
+        type: 3}
+      propertyPath: SlimeSize
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2860372916683598145, guid: d2f5d4ba6b19a9c4691f92783c4d064d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2224,11 +2227,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7118118215792411221, guid: d2f5d4ba6b19a9c4691f92783c4d064d,
-        type: 3}
-      propertyPath: SlimeSize
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3301732639984938736, guid: d2f5d4ba6b19a9c4691f92783c4d064d,
         type: 3}
