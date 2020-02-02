@@ -23,6 +23,7 @@ public class SlimeManager : MonoBehaviour
     [SerializeField] StudioEventEmitter studioEventEmitter;
 
     [Header("Blob Settings: ")]
+    [SerializeField] TargetMovement targetMov;
     [SerializeField] AimTarget aimTarget;
     [SerializeField] GameObject blobPrefab;
     [SerializeField] float blobFlightDuration = 1;
@@ -217,12 +218,19 @@ public class SlimeManager : MonoBehaviour
 
         if(CurrentSlime != null && CurrentSlime.SlimeSize == _sizeRecord) { _biggestBoi = CurrentSlime; }
 
-        CurrentSlime = _biggestBoi;
+        OnNewPrimeSlime(_biggestBoi);
+    }
+
+    public void OnNewPrimeSlime(Slime slime)
+    {
+        CurrentSlime = slime;
         CurrentSlime.PrimeSlime = true;
         rigidbodyOfCurrentSlime = CurrentSlime.GetComponent<Rigidbody>();
 
         thirdPersonCam.m_LookAt = CurrentSlime.transform;
         thirdPersonCam.m_Follow = CurrentSlime.transform;
+
+        targetMov.playerTransform = CurrentSlime.transform;
     }
 
     public void RemoveSlime(Slime _slime)
