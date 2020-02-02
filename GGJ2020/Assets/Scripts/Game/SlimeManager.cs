@@ -197,10 +197,11 @@ public class SlimeManager : MonoBehaviour
         yield return null;
     }
 
-    public void CreateNewSlime(Vector3 _position)
+    public void CreateNewSlime(Vector3 _position, bool _isSpecialPickup = false)
     {
         GameObject _newSlime = Instantiate(newSlimePrefab, _position, newSlimePrefab.transform.rotation);
         slimeList.Add(_newSlime.GetComponent<Slime>());
+        _newSlime.GetComponent<Slime>().PickupSlime = _isSpecialPickup;
 
         CheckWhichSlimeIsTheBiggest(true);
     }

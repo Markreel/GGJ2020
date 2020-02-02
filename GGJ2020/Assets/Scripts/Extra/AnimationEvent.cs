@@ -7,8 +7,8 @@ public class AnimationEvent : MonoBehaviour
 {
     [SerializeField] UnityEvent[] unityEvent;
 
-    public void Invoke(int _index)
+    public void InvokeAnimationEvent(int _index)
     {
-        unityEvent[_index].Invoke();
+        unityEvent[_index]?.Invoke();
     }
 }

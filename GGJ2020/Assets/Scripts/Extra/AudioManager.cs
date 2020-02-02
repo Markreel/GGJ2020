@@ -5,9 +5,6 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-    public enum ClipType { Effect, Music, UI, Ambience }
-
-    [SerializeField] private AudioSource effectSource;
 
     public AudioClip DoorUpClip;
     public AudioClip DoorFallClip;
@@ -24,36 +21,6 @@ public class AudioManager : MonoBehaviour
             Destroy(Instance);
         Instance = this;
 
-    }
-
-    public void PlayClip(AudioClip _clip)
-    {
-        effectSource.PlayOneShot(_clip);
-    }
-
-    public void PlayClip(AudioClip _clip, float _volume = 1, ClipType _type = ClipType.Effect)
-    {
-        switch (_type)
-        {
-            default:
-            case ClipType.Effect:
-                effectSource.PlayOneShot(_clip, _volume);
-                break;
-        }
-    }
-
-    public void PlayRandomClip(AudioClip[] _clips, float _volume = 1, ClipType _type = ClipType.Effect)
-    {
-        if (_clips == null || _clips.Length == 0) return;
-        AudioClip _rClip = _clips[Random.Range(0, _clips.Length)];
-
-        switch (_type)
-        {
-            default:
-            case ClipType.Effect:
-                effectSource.PlayOneShot(_rClip, _volume);
-                break;
-        }
     }
 
     public void CreateAudioPart(Transform _parent , AudioClip _clip)

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Blob : MonoBehaviour
 {
+    [SerializeField] bool isSpecialPickup = false;
+
     private void OnTriggerEnter(Collider _other)
     {
         Slime _slime = _other.gameObject.GetComponent<Slime>();
@@ -20,7 +22,7 @@ public class Blob : MonoBehaviour
 
         else
         {
-            SlimeManager.Instance.CreateNewSlime(transform.position + Vector3.up / 10);
+            SlimeManager.Instance.CreateNewSlime(transform.position + Vector3.up / 10, isSpecialPickup);
             //SlimeManager.Instance.CheckWhichSlimeIsTheBiggest(true);
         }
 

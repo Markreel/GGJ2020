@@ -32,6 +32,7 @@ public class Slime : MonoBehaviour
     {
         SlimeSize++;
         UpdateSlimeScale();
+        AnimateSpawn();
         SlimeManager.Instance.CheckWhichSlimeIsTheBiggest();
     }
 

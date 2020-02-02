@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 7118118215792411221}
   - component: {fileID: 7118118215792411220}
   - component: {fileID: 7118118215792411223}
+  - component: {fileID: 7118118216186306751}
   m_Layer: 9
   m_Name: Slime_New
   m_TagString: Untagged
@@ -166,6 +167,58 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.642604, y: 0.39633402, z: 0.69059217}
   m_Center: {x: 0, y: 0.20015351, z: -0.06918301}
+--- !u!114 &7118118216186306751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290650573045242706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4e158d6511918546bc8738931f91ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unityEvent:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: PlayMovingAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: PlayShootClip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: PlayPickupClip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1596544842134416199
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,4 +481,4 @@ Transform:
   - {fileID: 6326341348546054851}
   m_Father: {fileID: 2860372916683598145}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 1.4456404}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 1.4456406}
