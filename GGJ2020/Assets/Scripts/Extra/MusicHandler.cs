@@ -6,6 +6,7 @@ using FMODUnity;
 public class MusicHandler : MonoBehaviour
 {
     StudioEventEmitter studioEventEmitter;
+    [SerializeField] int musicIndex;
 
     private void Awake()
     {
@@ -14,12 +15,12 @@ public class MusicHandler : MonoBehaviour
 
     private void Start()
     {
-        ChangeMusic(SceneRegulator.Instance.GetCurrentSceneIndex());
+        ChangeMusic();
         studioEventEmitter.Play();
     }
 
-    public void ChangeMusic(int _index)
+    public void ChangeMusic()
     {
-        studioEventEmitter.Params[0].Value = _index;
+        studioEventEmitter.Params[0].Value = musicIndex;
     }
 }

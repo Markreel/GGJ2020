@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -545,16 +545,16 @@ MonoBehaviour:
   onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1266824976}
-        m_MethodName: LoadSceneAs
-        m_Mode: 3
+      - m_Target: {fileID: 1752432984}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1001 &67861078
 PrefabInstance:
@@ -4022,12 +4022,12 @@ PrefabInstance:
     - target: {fileID: 5030581241950375211, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000101564574
+      value: -0.00000006877286
       objectReference: {fileID: 0}
     - target: {fileID: 5030581241950375211, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00000027279742
+      value: 0.00000026236
       objectReference: {fileID: 0}
     - target: {fileID: 5030581241950375211, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
@@ -4057,12 +4057,12 @@ PrefabInstance:
     - target: {fileID: 5030581243926128617, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000002261117
+      value: 0.000000022611156
       objectReference: {fileID: 0}
     - target: {fileID: 5030581243926128617, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000002474561
+      value: -0.000000024745557
       objectReference: {fileID: 0}
     - target: {fileID: 5030581243926128617, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
@@ -4092,17 +4092,17 @@ PrefabInstance:
     - target: {fileID: 5030581242650955082, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.30330074
+      value: -0.30330077
       objectReference: {fileID: 0}
     - target: {fileID: 5030581242650955082, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000051212716
+      value: -0.00000008400445
       objectReference: {fileID: 0}
     - target: {fileID: 5030581242650955082, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00000020719048
+      value: 0.0000002176279
       objectReference: {fileID: 0}
     - target: {fileID: 5030581242650955082, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
@@ -4118,6 +4118,16 @@ PrefabInstance:
         type: 3}
       propertyPath: movementSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030581243740762769, guid: bdc37ece29339e142a9925e8083c25f7,
+        type: 3}
+      propertyPath: musicIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030581243740762771, guid: bdc37ece29339e142a9925e8083c25f7,
+        type: 3}
+      propertyPath: Params.Array.data[0].Value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdc37ece29339e142a9925e8083c25f7, type: 3}
@@ -6203,16 +6213,21 @@ PrefabInstance:
         type: 3}
       propertyPath: OnAnimationEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1266824976}
     - target: {fileID: 9022069639586547405, guid: 8a77fbd8ee42ee442acea0c09dacd84f,
         type: 3}
       propertyPath: OnAnimationEnd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwitchScene
+      value: LoadSceneAs
       objectReference: {fileID: 0}
     - target: {fileID: 9022069639586547405, guid: 8a77fbd8ee42ee442acea0c09dacd84f,
         type: 3}
       propertyPath: OnAnimationEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022069639586547405, guid: 8a77fbd8ee42ee442acea0c09dacd84f,
+        type: 3}
+      propertyPath: OnAnimationEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a77fbd8ee42ee442acea0c09dacd84f, type: 3}

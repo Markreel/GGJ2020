@@ -4123,12 +4123,12 @@ PrefabInstance:
     - target: {fileID: 5030581243926128617, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000001017667
+      value: -0.000000010176674
       objectReference: {fileID: 0}
     - target: {fileID: 5030581243926128617, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000014320465
+      value: -0.000000014320456
       objectReference: {fileID: 0}
     - target: {fileID: 5030581243926128617, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
@@ -4183,6 +4183,16 @@ PrefabInstance:
     - target: {fileID: 5030581243507672130, guid: bdc37ece29339e142a9925e8083c25f7,
         type: 3}
       propertyPath: movementSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030581243740762769, guid: bdc37ece29339e142a9925e8083c25f7,
+        type: 3}
+      propertyPath: musicIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030581243740762771, guid: bdc37ece29339e142a9925e8083c25f7,
+        type: 3}
+      propertyPath: Params.Array.data[0].Value
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
