@@ -2248,6 +2248,7 @@ MonoBehaviour:
   CurrentSlime: {fileID: 0}
   newSlimePrefab: {fileID: 6268657209792912716, guid: ac628dc04e63c12438cda22755460ed8,
     type: 3}
+  studioEventEmitter: {fileID: 0}
   aimTarget: {fileID: 1981999354}
   blobPrefab: {fileID: 5148031738388703472, guid: 636eeebbd3be5844aa6a36ab8e36746a,
     type: 3}
@@ -2598,6 +2599,10 @@ PrefabInstance:
       propertyPath: slimeMask.m_Bits
       value: 512
       objectReference: {fileID: 0}
+    - target: {fileID: 1917214087, guid: ac628dc04e63c12438cda22755460ed8, type: 3}
+      propertyPath: SlimeSize
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac628dc04e63c12438cda22755460ed8, type: 3}
 --- !u!114 &1055864668 stripped
@@ -2928,6 +2933,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2166919728854796486, guid: 636eeebbd3be5844aa6a36ab8e36746a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148031738388703472, guid: 636eeebbd3be5844aa6a36ab8e36746a,
         type: 3}
       propertyPath: m_Name
@@ -2991,11 +3001,6 @@ PrefabInstance:
     - target: {fileID: 5148031738388703484, guid: 636eeebbd3be5844aa6a36ab8e36746a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2166919728854796486, guid: 636eeebbd3be5844aa6a36ab8e36746a,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3801,16 +3806,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThirdPersonCamera
       objectReference: {fileID: 0}
-    - target: {fileID: 3164792501866284612, guid: 07f6c9394cd3e8345b8aeea53780cc18,
-        type: 3}
-      propertyPath: m_LookAt
-      value: 
-      objectReference: {fileID: 1055864671}
-    - target: {fileID: 3164792501866284612, guid: 07f6c9394cd3e8345b8aeea53780cc18,
-        type: 3}
-      propertyPath: m_Follow
-      value: 
-      objectReference: {fileID: 1055864671}
     - target: {fileID: 3164792501866284613, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3866,20 +3861,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3164792501866284612, guid: 07f6c9394cd3e8345b8aeea53780cc18,
+        type: 3}
+      propertyPath: m_LookAt
+      value: 
+      objectReference: {fileID: 1055864671}
+    - target: {fileID: 3164792501866284612, guid: 07f6c9394cd3e8345b8aeea53780cc18,
+        type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 1055864671}
     - target: {fileID: 3164792502906067526, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.23264843
+      value: -0.23264842
       objectReference: {fileID: 0}
     - target: {fileID: 3164792502906067526, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000010527243
+      value: 0.00000002513395
       objectReference: {fileID: 0}
     - target: {fileID: 3164792502906067526, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000014659802
+      value: -0.000000023190394
       objectReference: {fileID: 0}
     - target: {fileID: 3164792502906067526, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
@@ -3899,7 +3904,7 @@ PrefabInstance:
     - target: {fileID: 3164792501917815049, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000092189744
+      value: 0.00000009218974
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501917815049, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}

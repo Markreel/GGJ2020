@@ -9,7 +9,7 @@ public class SlimeManager : MonoBehaviour
     private static SlimeManager instance;
     public static SlimeManager Instance { get { return instance; } private set { instance = value; } }
 
-    public enum States { Idle, Moving, Dead };
+    public enum States { Idle, Moving, Shooting, Dead };
     private States currentState;
 
     [SerializeField] CinemachineFreeLook thirdPersonCam;
@@ -87,7 +87,7 @@ public class SlimeManager : MonoBehaviour
         hInput = Input.GetAxis(horizontalJoystick);
 
         if (Input.GetAxisRaw(aimInputString) != 0 && !aimInput) { ToggleAim(); aimInput = true; }
-        if (Input.GetAxisRaw(fireInputString) != 0 && isAiming && !fireInput) { ShootBlob(); fireInput = true; }
+        if (Input.GetAxisRaw(fireInputString) != 0 && isAiming && !fireInput) { StartShootAnimation(); fireInput = true; }
 
         if (Input.GetAxisRaw(aimInputString) == 0 && aimInput) { ToggleAim(); aimInput = false; } 
         if (Input.GetAxisRaw(fireInputString) == 0 && fireInput) { fireInput = false; }
@@ -119,8 +119,8 @@ public class SlimeManager : MonoBehaviour
         Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
         CurrentSlime.transform.localRotation = Quaternion.Slerp(CurrentSlime.transform.localRotation, WantedRotation, Time.deltaTime * 5);
 
-        if(moveVelocity != Vector3.zero) { studioEventEmitter.Params[0].Value = 1; }
-        else { studioEventEmitter.Params[0].Value = 0; }
+        if(moveVelocity != Vector3.zero) { studioEventEmitter.Params[0].Value = 1; CurrentSlime.ToggleWalk(true); }
+        else { studioEventEmitter.Params[0].Value = 0; CurrentSlime.ToggleWalk(false); }
     }
    
     #endregion
@@ -141,9 +141,14 @@ public class SlimeManager : MonoBehaviour
         aimTarget.gameObject.SetActive(isAiming);
     }
 
-    private void ShootBlob()
+    private void StartShootAnimation()
     {
-        CurrentSlime.ShootBlob();
+        CurrentSlime.AnimateShoot();
+    }
+
+    public void ShootBlob()
+    {
+        //CurrentSlime.ShootBlob();
         blobFlightRoutine = StartCoroutine(IELerpBlobOverCurve());
     }
 

@@ -14,9 +14,11 @@ public class Slime : MonoBehaviour
 
     public int SlimeSize = 1;
 
+    private Animator anim;
 
     private void Awake()
     {
+        anim = GetComponent<Animator>();
         UpdateSlimeScale();
     }
 
@@ -34,6 +36,8 @@ public class Slime : MonoBehaviour
 
     public void ShootBlob()
     {
+        SlimeManager.Instance.ShootBlob();
+
         SlimeSize--;
         UpdateSlimeScale();
         SlimeManager.Instance.CheckWhichSlimeIsTheBiggest();
@@ -49,6 +53,21 @@ public class Slime : MonoBehaviour
         SlimeSize += _otherSlime.SlimeSize;
         SlimeManager.Instance.RemoveSlime(_otherSlime);
         UpdateSlimeScale();
+    }
+
+    public void AnimateShoot()
+    {
+        anim.SetTrigger("Shoot");
+    }
+
+    public void AnimateSpawn()
+    {
+        anim.SetTrigger("Shoot");
+    }
+
+    public void ToggleWalk(bool _value)
+    {
+        anim.SetBool("Walking", _value);
     }
 
     private void CheckForNearbySlimes()
