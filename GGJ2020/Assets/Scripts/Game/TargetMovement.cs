@@ -74,7 +74,6 @@ public class TargetMovement : MonoBehaviour
 
         wantedPos += moveDir * speed;
 
-        Debug.Log(layerMask);
         if (Physics.Raycast(wantedPos + Vector3.up * rayHeight, Vector3.down * rayLength, out RaycastHit hit))
         {
             Vector3 newPos = hit.point;
