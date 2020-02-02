@@ -133,7 +133,7 @@ MonoBehaviour:
     m_Bits: 512
   maxSlimeDetectionRange: 3
   scaleFactor: 0.5
-  PrimeSlime: 1
+  PrimeSlime: 0
   SlimeSize: 1
 --- !u!54 &7118118215792411220
 Rigidbody:
