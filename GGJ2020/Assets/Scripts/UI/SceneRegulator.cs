@@ -12,6 +12,11 @@ public class SceneRegulator : MonoBehaviour
         Instance = this;
     }
 
+    public int GetCurrentSceneIndex()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
+    }
+
     public void SwitchScene(int index)
     {
         SceneManager.LoadScene(index);

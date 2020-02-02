@@ -2666,6 +2666,7 @@ GameObject:
   - component: {fileID: 848139097}
   - component: {fileID: 848139100}
   - component: {fileID: 848139099}
+  - component: {fileID: 848139102}
   - component: {fileID: 848139098}
   - component: {fileID: 848139101}
   m_Layer: 0
@@ -2682,7 +2683,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848139096}
-  m_LocalRotation: {x: 0.23264845, y: -0.000000044898147, z: 0.0000002463595, w: 0.9725609}
+  m_LocalRotation: {x: 0.23264846, y: -0.000000044898165, z: 0.0000002463595, w: 0.9725609}
   m_LocalPosition: {x: 0, y: 1.7, z: -3.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2839,6 +2840,14 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!81 &848139102
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848139096}
+  m_Enabled: 1
 --- !u!114 &870104960 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3164792501866284612, guid: 07f6c9394cd3e8345b8aeea53780cc18,
@@ -3447,6 +3456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1106378299}
   - component: {fileID: 1106378298}
+  - component: {fileID: 1106378300}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -3486,6 +3496,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1106378300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106378297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25adfe5381c3c44f9de465666288369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectSource: {fileID: 0}
+  DoorUpClip: {fileID: 8300000, guid: 4053bfe7ff4cf314aa44c3c9eecd25a6, type: 3}
+  DoorFallClip: {fileID: 8300000, guid: 618ef6d1c3942074e880cc7e1f44bea9, type: 3}
+  PresurePlateHitClip: {fileID: 8300000, guid: 5c88148a57fca6a4e9f9c1cfe8ab06a5, type: 3}
+  SlimeHitClips:
+  - {fileID: 8300000, guid: e4edf267ed658d646bb375825e6b5ce4, type: 3}
+  - {fileID: 8300000, guid: 61b78ce23a205ea458289c2dbdfbfa7e, type: 3}
+  - {fileID: 8300000, guid: f81150722691c144e949a7faa0403c9e, type: 3}
+  - {fileID: 8300000, guid: 06feef6f7cc8e4249b1c377dde46876c, type: 3}
 --- !u!1 &1238698153 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3041024591269291981, guid: c96176c285f18e34d9cbc29601ad9a77,
@@ -5411,17 +5442,17 @@ PrefabInstance:
     - target: {fileID: 3164792501630972133, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.23264845
+      value: -0.23264846
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501630972133, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000623568
+      value: -0.000000026695602
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501630972133, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000002020079
+      value: 0.0000001934773
       objectReference: {fileID: 0}
     - target: {fileID: 3164792501630972133, guid: 07f6c9394cd3e8345b8aeea53780cc18,
         type: 3}

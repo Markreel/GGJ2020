@@ -13,6 +13,7 @@ public class Gate : MonoBehaviour
 
     public void OpenGate()
     {
+        AudioManager.Instance.CreateAudioPart(transform.position, AudioManager.Instance.DoorFallClip, 0.25f);
         anim.SetTrigger("Open");
     }
 }
