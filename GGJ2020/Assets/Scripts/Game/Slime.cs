@@ -11,6 +11,7 @@ public class Slime : MonoBehaviour
 
     [SerializeField] float scaleFactor;
     public bool PrimeSlime = false;
+    public bool PickupSlime = false;
 
     public int SlimeSize = 1;
 
@@ -90,6 +91,8 @@ public class Slime : MonoBehaviour
 
         if (_slime != null && !_slime.PrimeSlime)
         {
+            if (_slime.PickupSlime) { AudioManager.Instance.CreateAudioPart(transform.position, 
+                AudioManager.Instance.SpecialPickupClips[Random.Range(0, AudioManager.Instance.SpecialPickupClips.Length)], 0.25f); }
             MergeWithOtherSlime(_slime);
         }
     }

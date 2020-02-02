@@ -5,36 +5,45 @@ using UnityEngine;
 public class fmodexample : MonoBehaviour
 {
     [FMODUnity.EventRef]
+    public string LanaGra2;
+    FMOD.Studio.EventInstance ShootAudio;
+
+    [FMODUnity.EventRef]
     public string LanaGra;
-    FMOD.Studio.EventInstance audioClip;
+    FMOD.Studio.EventInstance PickupAudio;
 
     void Awake()
     {
-        audioClip = FMODUnity.RuntimeManager.CreateInstance(LanaGra);
-        audioClip.start();
+        PickupAudio = FMODUnity.RuntimeManager.CreateInstance(LanaGra);
+        ShootAudio = FMODUnity.RuntimeManager.CreateInstance(LanaGra2);
 
         //StartCoroutine(IETest());
     }
 
-    public void SetClip(float _value)
+    public void PlayPickupClip()
     {
-        audioClip.setParameterByName("moving", _value);
+        PickupAudio.start();
     }
 
-    void Update()
+    public void PlayShootClip()
     {
-        FMODUnity.RuntimeManager.AttachInstanceToGameObject(audioClip, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        ShootAudio.start();
     }
 
-    private IEnumerator IETest()
-    {
-        yield return new WaitForSeconds(3);
+    //void Update()
+    //{
+    //    FMODUnity.RuntimeManager.AttachInstanceToGameObject(audioClip, GetComponent<Transform>(), GetComponent<Rigidbody>());
+    //}
 
-        audioClip.start();
+    //private IEnumerator IETest()
+    //{
+    //    yield return new WaitForSeconds(3);
 
-        StartCoroutine(IETest());
+    //    audioClip.start();
 
-        yield return null;
-    }
+    //    StartCoroutine(IETest());
+
+    //    yield return null;
+    //}
 }
 

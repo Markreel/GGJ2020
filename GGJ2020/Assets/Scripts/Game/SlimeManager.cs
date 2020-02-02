@@ -126,8 +126,13 @@ public class SlimeManager : MonoBehaviour
             CurrentSlime.transform.localRotation = WantedRotation;
         }
 
-        if(moveVelocity != Vector3.zero) { studioEventEmitter.Params[0].Value = 1; CurrentSlime.ToggleWalk(true); }
+        if (moveVelocity != Vector3.zero) { studioEventEmitter.Params[0].Value = 1; CurrentSlime.ToggleWalk(true); }
         else { studioEventEmitter.Params[0].Value = 0; CurrentSlime.ToggleWalk(false); }
+    }
+
+    public void PlayMovingAudio()
+    {
+        studioEventEmitter.Play();
     }
    
     #endregion
