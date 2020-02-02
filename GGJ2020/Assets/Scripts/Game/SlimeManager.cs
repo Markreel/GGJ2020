@@ -106,8 +106,11 @@ public class SlimeManager : MonoBehaviour
     {
         Vector3 moveVelocity = Vector3.zero;
 
-        Quaternion walkDir = Quaternion.Euler(CurrentSlime.transform.rotation.eulerAngles.x, camTransform.rotation.eulerAngles.y, CurrentSlime.transform.rotation.eulerAngles.z);
-        CurrentSlime.transform.rotation = walkDir;
+        if (hInput + vInput != 0)
+        {
+            Quaternion walkDir = Quaternion.Euler(CurrentSlime.transform.rotation.eulerAngles.x, camTransform.rotation.eulerAngles.y, CurrentSlime.transform.rotation.eulerAngles.z);
+            CurrentSlime.transform.rotation = walkDir;
+        }
 
         moveVelocity += CurrentSlime.transform.forward * vInput;
         moveVelocity += CurrentSlime.transform.right * hInput;
@@ -117,8 +120,11 @@ public class SlimeManager : MonoBehaviour
 
         rigidbodyOfCurrentSlime.velocity = moveVelocity;
 
-        Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
-        CurrentSlime.transform.localRotation = Quaternion.Slerp(CurrentSlime.transform.localRotation, WantedRotation, Time.deltaTime * 5);
+        if (hInput + vInput != 0)
+        {
+            Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
+            CurrentSlime.transform.localRotation = WantedRotation;
+        }
 
         if(moveVelocity != Vector3.zero) { studioEventEmitter.Params[0].Value = 1; CurrentSlime.ToggleWalk(true); }
         else { studioEventEmitter.Params[0].Value = 0; CurrentSlime.ToggleWalk(false); }
