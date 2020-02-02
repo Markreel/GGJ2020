@@ -32,6 +32,7 @@ public class TargetMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        layerMask = LayerMask.GetMask("Default");
     }
 
     private void SetPos(Vector3 point)
@@ -73,6 +74,7 @@ public class TargetMovement : MonoBehaviour
 
         wantedPos += moveDir * speed;
 
+        Debug.Log(layerMask);
         if (Physics.Raycast(wantedPos + Vector3.up * rayHeight, Vector3.down * rayLength, out RaycastHit hit))
         {
             Vector3 newPos = hit.point;
