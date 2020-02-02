@@ -10,7 +10,7 @@ public class Button : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<SlimeMovement>())
+        if (other.GetComponent<Slime>())
         {
             OnTrigger?.Invoke();
         }
