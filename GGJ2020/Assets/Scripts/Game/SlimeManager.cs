@@ -232,6 +232,7 @@ public class SlimeManager : MonoBehaviour
         CurrentSlime = slime;
         CurrentSlime.PrimeSlime = true;
         rigidbodyOfCurrentSlime = CurrentSlime.GetComponent<Rigidbody>();
+        rigidbodyOfCurrentSlime.constraints = RigidbodyConstraints.FreezeRotation;
 
         thirdPersonCam.m_LookAt = CurrentSlime.transform;
         thirdPersonCam.m_Follow = CurrentSlime.transform;
