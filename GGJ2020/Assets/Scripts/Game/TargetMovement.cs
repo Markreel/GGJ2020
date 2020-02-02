@@ -5,9 +5,9 @@ using UnityEngine;
 public class TargetMovement : MonoBehaviour
 {
     [Header("Stats")]
+    public LayerMask layerMask;
     public float maxDistanceFromPlayer = 4f;
     public float speed;
-    public float gravityAmplifier = 2f;
     public float angleThreshold = 15f;
     public float rayHeight = 10f;
     public float rayLength = 2f;
@@ -32,13 +32,7 @@ public class TargetMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        forwardVector = transform.forward;
-        rightVector = transform.right;
-    }
-
-    private void Start()
-    {
-        OnEnterAimMode();
+        layerMask = LayerMask.GetMask("Default");
     }
 
     private void SetPos(Vector3 point)
@@ -49,11 +43,9 @@ public class TargetMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Movement();
-        StopFloating();
-        if (checkForDirection)
+        if (hInput + vInput != 0)
         {
-            CustomGravity();
+            Movement();
         }
     }
 
@@ -70,138 +62,41 @@ public class TargetMovement : MonoBehaviour
 
     private void Movement()
     {
+        Vector3 wantedPos = pos;
+
         Quaternion lookDir = Quaternion.Euler(transform.rotation.eulerAngles.x, forwardTranform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
         transform.rotation = lookDir;
 
-        if (checkForDirection)
+        Vector3 moveDir = transform.forward * vInput;
+        moveDir += transform.right * hInput;
+        moveDir.y = 0;
+        moveDir = moveDir.normalized;
+
+        wantedPos += moveDir * speed;
+
+        if (Physics.Raycast(wantedPos + Vector3.up * rayHeight, Vector3.down * rayLength, out RaycastHit hit))
         {
-            forwardVector = transform.forward;
-            rightVector = transform.right;
-        }
+            Vector3 newPos = hit.point;
 
-        Vector3 moveVelocity = Vector3.zero;
-
-
-        moveVelocity += forwardVector * vInput * speed;
-        moveVelocity += rightVector * hInput * speed;
-
-        moveVelocity = moveVelocity.normalized * speed;
-
-        if (Mathf.Abs(Vector3.Distance(transform.position + moveVelocity/2, playerTransform.position)) -
-            Mathf.Abs(transform.position.y - playerTransform.position.y) < maxDistanceFromPlayer)
-        {
-            rb.velocity = moveVelocity;
-        } else
-        {
-            rb.velocity = Vector3.zero;
-        }
-
-        if (checkForDirection)
-        {
-            Quaternion WantedRotation = Quaternion.LookRotation(moveVelocity);
-            transform.localRotation = WantedRotation;
-        }
-    }
-
-    private void CustomGravity()
-    {
-        rb.velocity = new Vector3(rb.velocity.x, -gravityAmplifier, rb.velocity.z);
-    }
-
-    private void OnEnterAimMode()
-    {
-        SetPos(forwardTranform.forward);
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-
-        List<ContactPoint> contactPoints = new List<ContactPoint>();
-        collision.GetContacts(contactPoints);
-
-        if (contactPoints.Count > 0)
-        {
-            CheckOnCollisionHits(contactPoints);
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (mayChangeDirection)
-        {
-            checkForDirection = true;
-        }
-    }
-
-    private void StopFloating()
-    {
-        if (!Physics.Raycast(transform.position, transform.forward) && 
-            !Physics.Raycast(transform.position, transform.right) && 
-            !Physics.Raycast(transform.position, -transform.right) &&
-            !Physics.Raycast(transform.position, -transform.forward))
-        {
-            checkForDirection = true;
-        }
-    }
-
-    private void CheckOnCollisionHits(List<ContactPoint> contactPoints)
-    {
-        if (mayChangeDirection)
-        {
-            for (int i = 0; i < contactPoints.Count; i++)
+            if (newPos.y < transform.position.y - yThreshold || newPos.y > transform.position.y + yThreshold)
             {
-                if (contactPoints[i].otherCollider == null) break;
+                newPos.x = transform.position.x;
+                newPos.z = transform.position.z;
+                newPos.y = (newPos.y > transform.position.y) ? transform.position.y + speed : transform.position.y - speed;
+            }
+            float dist = Vector3.Distance(playerTransform.position, newPos);
+            dist += (newPos.y - pos.y > 0) ? newPos.y - pos.y : 0;
 
-                Vector3 dir = contactPoints[i].normal;
-
-                //Forward
-                if (Vector3.Angle(dir, -transform.forward) <= angleThreshold && Vector3.Angle(dir, -transform.forward) >= -angleThreshold)
-                {
-                    StartCoroutine(WaitDirChange());
-                    checkForDirection = false;
-                    //Debug.DrawRay(transform.position, dir, Color.blue, 1f);
-                    //Debug.DrawRay(transform.position, GetTangent(dir), Color.red, 2f);
-                    //Debug.DrawRay(transform.position, GetBiNormal(dir, GetTangent(dir)), Color.green, 2f);
-                    Vector3 tangent = GetTangent(dir);
-                    rightVector = tangent;
-                    forwardVector = -GetBiNormal(dir, tangent);
-                    return;
-                } 
-            
-                //Ground
-                //else if (Vector3.Angle(dir, -Vector3.up) <= angleThreshold && Vector3.Angle(dir, -Vector3.up) >= -angleThreshold)
-                //{
-                //    checkForDirection = true;
-                //}
+            if (dist < maxDistanceFromPlayer)
+            {
+                SetPos(newPos);
             }
         }
     }
 
-    private IEnumerator WaitDirChange(float time = 0.1f)
-    {
-        mayChangeDirection = false;
-        yield return new WaitForSeconds(time);
-        mayChangeDirection = true;
-    }
 
-    private Vector3 GetTangent(Vector3 normal)
+    private void OnEnable()
     {
-        Vector3 tangent;
-        Vector3 t1 = Vector3.Cross(normal, transform.forward);
-        Vector3 t2 = Vector3.Cross(normal, transform.up);
-        if (t1.magnitude > t2.magnitude)
-        {
-            tangent = t1;
-        } else
-        {
-            tangent = t2;
-        }
-
-        return tangent;
-    }
-
-    private Vector3 GetBiNormal(Vector3 normal, Vector3 tangent)
-    {
-        return Vector3.Cross(normal, tangent);
+        SetPos(playerTransform.position);
     }
 }
