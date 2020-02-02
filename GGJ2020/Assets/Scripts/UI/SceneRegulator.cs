@@ -17,7 +17,12 @@ public class SceneRegulator : MonoBehaviour
         StartCoroutine(LoadSceneAsCor(index));
     }
 
-    public IEnumerator LoadSceneAsCor(int index)
+    public int GetCurrentSceneIndex()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
+    }
+
+        public IEnumerator LoadSceneAsCor(int index)
     {
         AsyncOperation AO = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
         AO.allowSceneActivation = false;

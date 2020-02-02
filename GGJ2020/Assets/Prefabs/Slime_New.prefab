@@ -94,6 +94,7 @@ Transform:
   m_Children:
   - {fileID: 3301732639984938736}
   - {fileID: 4020963816668166789}
+  - {fileID: 4958962866506453983}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -134,6 +135,7 @@ MonoBehaviour:
   maxSlimeDetectionRange: 3
   scaleFactor: 0.5
   PrimeSlime: 0
+  PickupSlime: 0
   SlimeSize: 1
 --- !u!54 &7118118215792411220
 Rigidbody:
@@ -279,6 +281,122 @@ Transform:
   m_Father: {fileID: 3301732639984938736}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7274333184198028464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4958962866506453983}
+  - component: {fileID: 7532321891300183895}
+  - component: {fileID: 7129214007835385716}
+  - component: {fileID: 1842914840274657050}
+  m_Layer: 0
+  m_Name: Crown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4958962866506453983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7274333184198028464}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.006, y: 0.283, z: -0.003}
+  m_LocalScale: {x: 0.021170003, y: 0.021170003, z: 0.02117}
+  m_Children: []
+  m_Father: {fileID: 2860372916683598145}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &7532321891300183895
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7274333184198028464}
+  m_Mesh: {fileID: -8918359706675279303, guid: 650537e659fe56a4992788633b41892f, type: 3}
+--- !u!23 &7129214007835385716
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7274333184198028464}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: be60f82f5a488d64c9cb8ce989e9c898, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &1842914840274657050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7274333184198028464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5abc976c1acf77642ad6db3cda238cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slimeManagerScript: {fileID: 0}
+  currentSlime: {fileID: 0}
+  thisSlime: {fileID: 0}
+  crownScales:
+  - {x: 0.02, y: 0.02, z: 0.02}
+  - {x: 0.02, y: 0.02, z: 0.02}
+  - {x: 0.01, y: 0.01, z: 0.01}
+  - {x: 0.006666667, y: 0.006666667, z: 0.006666667}
+  - {x: 0.005, y: 0.005, z: 0.005}
+  - {x: 0.004, y: 0.004, z: 0.004}
+  - {x: 0.0033333334, y: 0.0033333334, z: 0.0033333334}
+  - {x: 0.0028571428, y: 0.0028571428, z: 0.0028571428}
+  - {x: 0.0025, y: 0.0025, z: 0.0025}
+  - {x: 0.0022222223, y: 0.0022222223, z: 0.0022222223}
+  crownPos:
+  - {x: 0, y: 0.236, z: 0}
+  - {x: 0, y: 0.236, z: 0}
+  - {x: 0, y: 0.354, z: 0}
+  - {x: 0, y: 0.374, z: 0}
+  - {x: 0, y: 0.379, z: 0}
+  - {x: 0, y: 0.382, z: 0}
+  - {x: 0, y: 0.384, z: 0}
+  - {x: 0, y: 0.385, z: 0}
+  - {x: 0, y: 0.386, z: 0}
+  - {x: 0, y: 0.386, z: 0}
 --- !u!1 &8019432837999788587
 GameObject:
   m_ObjectHideFlags: 0

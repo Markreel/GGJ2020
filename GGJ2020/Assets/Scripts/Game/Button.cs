@@ -12,6 +12,7 @@ public class Button : MonoBehaviour
     {
         if (other.GetComponent<Slime>())
         {
+            AudioManager.Instance.CreateAudioPart(transform.position, AudioManager.Instance.PresurePlateHitClip, 0.25f);
             OnTrigger?.Invoke();
         }
     }
