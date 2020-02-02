@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Blob : MonoBehaviour
 {
-
     private void OnTriggerEnter(Collider _other)
     {
         Slime _slime = _other.gameObject.GetComponent<Slime>();
@@ -25,8 +24,6 @@ public class Blob : MonoBehaviour
             //SlimeManager.Instance.CheckWhichSlimeIsTheBiggest(true);
         }
 
-        AudioManager.Instance.CreateAudioPart(transform.position, 
-            AudioManager.Instance.SlimeHitClips[Random.Range(0, AudioManager.Instance.SlimeHitClips.Length)], 0.25f);
         Destroy(gameObject);
     }
 }
